@@ -1,0 +1,203 @@
+/* The page: reset, bar, hero canvas, sections. Values come from tokens.css. */
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 var(--sans);font-feature-settings:"cv11","ss01";-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+:root[data-theme=dark] body{line-height:1.66}
+a{color:inherit}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+:focus-visible{outline:2px solid color-mix(in oklab,var(--accent) 75%,transparent);outline-offset:2px}
+::selection{background:color-mix(in oklab,var(--accent) 28%,transparent)}
+code{font-family:var(--mono);font-size:.84em;font-variant-ligatures:none}
+p code,li code{padding:1px 5px;border-radius:var(--r-tag);background:var(--code);color:var(--ink)}
+svg{flex:none}
+h1,h2,h3{text-wrap:balance;margin:0}
+p{text-wrap:pretty}
+
+.wrap{width:min(1180px,100% - 48px);margin-inline:auto}
+.skip{position:absolute;left:12px;top:-60px;z-index:calc(var(--z-bar) + 1);padding:8px 12px;background:var(--accent);color:var(--on-accent);border-radius:var(--r-ctl)}
+.skip:focus{top:12px}
+
+/* controls, as in the app's base.css */
+.btn{display:inline-flex;align-items:center;gap:8px;height:36px;padding:0 14px;border:1px solid var(--line);border-radius:var(--r-ctl);background:var(--bg);
+  font-size:14px;font-weight:500;text-decoration:none;white-space:nowrap;transition:border-color .15s,background .15s,transform .1s}
+.btn:hover{border-color:var(--line-2);background:var(--hover)}
+.btn:active{transform:translateY(1px)}
+.btn svg{width:16px;height:16px}
+.btn.ghost{height:44px;padding:0 18px;font-size:15px;border-color:var(--line-2)}
+.icon{display:inline-grid;place-items:center;width:36px;height:36px;border-radius:var(--r-ctl);color:var(--muted);transition:background .15s,color .15s}
+.icon:hover{background:var(--hover);color:var(--ink)}
+.icon svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+svg.fill{fill:currentColor}
+kbd{display:inline-grid;place-items:center;min-width:30px;height:30px;padding:0 8px;font:500 13px var(--mono);color:var(--ink);
+  background:var(--bg);border:1px solid var(--line-2);border-bottom-width:2px;border-radius:var(--r-ctl)}
+
+/* bar */
+.bar{position:sticky;top:0;z-index:var(--z-bar);background:var(--canvas);border-bottom:1px solid transparent;transition:border-color .2s}
+.bar.stuck{border-bottom-color:var(--line)}
+.bar-in{display:flex;align-items:center;gap:6px;height:60px}
+.brand{display:inline-flex;align-items:center;gap:10px;text-decoration:none;font-size:16px;margin-right:18px}
+.logo{width:24px;height:24px;background:url(/favicon.svg) center/contain no-repeat}
+.bar nav{display:flex;gap:2px}
+.bar nav a{padding:6px 10px;border-radius:var(--r-ctl);font-size:14px;color:var(--ink-2);text-decoration:none;transition:background .15s,color .15s}
+.bar nav a:hover{background:var(--hover);color:var(--ink)}
+.spacer{flex:1}
+
+/* shared section type */
+section{padding-block:clamp(72px,10vw,136px)}
+h2{font-size:clamp(1.8rem,1.1rem + 2.4vw,2.9rem);line-height:1.08;font-weight:680;letter-spacing:-.028em;max-width:22ch}
+.sub{margin:18px 0 0;max-width:60ch;color:var(--ink-2);font-size:clamp(1rem,.95rem + .25vw,1.125rem)}
+
+/* install command, used in the hero and the install section */
+.cmd{display:flex;align-items:center;gap:4px;min-width:0;height:48px;padding:0 5px 0 16px;background:var(--bg);border:1px solid var(--line-2);border-radius:var(--r-ctl)}
+.cmd code{flex:1;min-width:0;overflow-x:auto;white-space:nowrap;font-size:13.5px;scrollbar-width:none}
+.cmd .pr{color:var(--muted);margin-right:8px;user-select:none}
+.copy{flex:none;height:36px;padding:0 12px;border-radius:var(--r-ctl);font-size:13px;font-weight:600;background:var(--accent);color:var(--on-accent);transition:background .15s}
+.copy:hover{background:color-mix(in oklab,var(--accent) 86%,var(--ink))}
+.copy.done{background:var(--add)}
+
+/* ---------- hero ---------- */
+.hero{padding:clamp(40px,5vw,72px) 0 0;background-color:var(--canvas);background-image:radial-gradient(var(--dot) 1px,transparent 1.2px);background-size:22px 22px;border-bottom:1px solid var(--line)}
+.hero h1{font-size:clamp(2.5rem,1.2rem + 4.8vw,5rem);line-height:1;font-weight:720;letter-spacing:-.038em;max-width:16ch}
+.lede{margin:26px 0 0;max-width:58ch;font-size:clamp(1.05rem,.98rem + .35vw,1.25rem);color:var(--ink-2)}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:34px;max-width:880px}
+.cta .cmd{flex:1 1 440px}
+.meta{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;margin:18px 0 0;font-size:14px;color:var(--muted)}
+.meta i{width:3px;height:3px;border-radius:50%;background:var(--line-2)}
+
+.stage{position:relative;height:680px;margin-top:clamp(28px,4vw,48px);overflow:hidden;touch-action:pan-y;cursor:grab;user-select:none}
+.stage.panning{cursor:grabbing}
+.world{position:absolute;left:0;top:0;width:1130px;height:590px;transform-origin:0 0}
+.world>.win{position:absolute}
+.world>.win>.win-h{cursor:grab;touch-action:none}
+.world>.win.dragging>.win-h{cursor:grabbing}
+.edges{position:absolute;left:0;top:0;width:1px;height:1px;overflow:visible;pointer-events:none}
+.edge{fill:none;stroke-width:1.75;opacity:.85;transition:opacity .4s}
+.edge.read{stroke:var(--read);stroke-dasharray:2 5;stroke-linecap:round;marker-end:url(#m-read)}
+.edge.edit{stroke:var(--edit);marker-end:url(#m-edit)}.edge.write{stroke:var(--write);marker-end:url(#m-write)}.edge.run{stroke:var(--run);marker-end:url(#m-run)}
+.edge.live{stroke-width:2.25;stroke-dasharray:7 6;animation:flow .7s linear infinite;opacity:1}
+#m-read path{fill:var(--read)}#m-edit path{fill:var(--edit)}#m-write path{fill:var(--write)}#m-run path{fill:var(--run)}
+.tag{position:absolute;z-index:var(--z-over);translate:-50% -50%;padding:1px 7px;font:500 12px/1.5 var(--mono);color:var(--c);background:var(--bg);border:1px solid var(--c);border-radius:var(--r-tag);pointer-events:none}
+.tag.read{--c:var(--read)}.tag.edit{--c:var(--edit)}.tag.write{--c:var(--write)}.tag.run{--c:var(--run)}
+@keyframes flow{to{stroke-dashoffset:-13}}
+
+.card .log{flex:1;display:flex;flex-direction:column;gap:14px;padding:18px 20px;font-size:14px;line-height:1.55}
+.card .log p{margin:0}
+.card .you{align-self:flex-end;max-width:88%;padding:9px 13px;background:var(--rail);border:1px solid var(--line);border-radius:var(--r-box)}
+.card .say code{padding:1px 5px;border-radius:var(--r-tag);background:var(--code);font-size:12.5px}
+.acts{display:flex;flex-direction:column;gap:7px;margin:0;padding:0;list-style:none;font:12.5px/1.4 var(--mono)}
+.acts li{display:flex;align-items:center;gap:10px;min-width:0;color:var(--ink-2)}
+.acts li::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--c);flex:none}
+.acts b{width:44px;font-weight:500;color:var(--c)}
+.acts span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.acts em{font-style:normal;color:var(--muted);margin-left:auto}
+.acts .read{--c:var(--read)}.acts .edit{--c:var(--edit)}.acts .write{--c:var(--write)}.acts .run{--c:var(--run)}
+.card .dock{flex:none;padding:10px;border-top:1px solid var(--line);background:var(--rail)}
+.card .input{height:40px;padding:0 12px;display:flex;align-items:center;font-size:14px;color:var(--muted);background:var(--bg);border:1px solid var(--line-2);border-radius:var(--r-ctl)}
+
+/* the demo's timeline: hero.ts adds .play and marks each step data-on as it happens; without it everything shows */
+.play [data-step]{transition:opacity .45s var(--ease),translate .45s var(--ease),scale .45s var(--ease)}
+.play [data-step]:not([data-on]){opacity:0;translate:0 6px}
+.play .win[data-step]:not([data-on]){scale:.97;translate:0 0}
+.play .tag:not([data-on]),.play .edge:not([data-on]){opacity:0}
+.play .tag{transition:opacity .3s}
+
+.stage-nav{position:absolute;right:max(24px,(100% - 1180px) / 2);bottom:22px;z-index:var(--z-over);display:flex;align-items:center;gap:12px}
+.hint{margin:0;font-size:13px;color:var(--muted)}
+
+/* ---------- verbs ---------- */
+.verb-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:36px 40px;margin:56px 0 0;padding:0;list-style:none}
+.verb-list li{display:flex;flex-direction:column;gap:8px}
+.verb-list svg{width:120px;height:12px;margin-bottom:10px}
+.verb-list svg path{fill:none;stroke:var(--c);stroke-width:2}
+.verb-list svg .hd{fill:var(--c);stroke:none}
+.verb-list .read svg path:first-child{stroke-dasharray:2 5;stroke-linecap:round}
+.verb-list b{font-size:19px;font-weight:650;color:var(--c)}
+.verb-list span{color:var(--ink-2);font-size:15.5px;max-width:34ch}
+.verb-list .read{--c:var(--read)}.verb-list .edit{--c:var(--edit)}.verb-list .write{--c:var(--write)}.verb-list .run{--c:var(--run)}
+
+/* ---------- features: windows laid out on a canvas ---------- */
+.features{background-color:var(--canvas);background-image:radial-gradient(var(--dot) 1px,transparent 1.2px);background-size:22px 22px;border-block:1px solid var(--line)}
+.board{display:grid;grid-template-columns:repeat(12,1fr);gap:40px 28px;margin-top:64px;align-items:start}
+.board .win-b{padding:18px 22px 22px;font-size:15.5px;color:var(--ink-2)}
+.board .win-b p{margin:0;max-width:62ch}
+.board .win-h .t{font-size:14px}
+.f-par{grid-column:span 5}.f-diff{grid-column:span 7;margin-top:36px}
+.f-tools{grid-column:span 4}.f-board{grid-column:span 5;margin-top:28px}.f-agent{grid-column:span 3;margin-top:-12px}
+.f-git{grid-column:span 4;margin-top:-8px}.f-resume{grid-column:span 3;margin-top:20px}.f-themes{grid-column:span 5}
+
+.mini-cards{display:flex;flex-direction:column;gap:8px;margin:18px 0 0;padding:0;list-style:none}
+.mini-cards li{display:flex;align-items:center;gap:10px;height:38px;padding:0 12px;background:var(--rail);border:1px solid var(--line);border-radius:var(--r-box);font-size:14px;font-weight:550;color:var(--ink)}
+.mini-cards li[data-state=busy]{border-color:color-mix(in oklab,var(--accent) 60%,var(--line))}
+.mini-cards li[data-state=asking]{border-color:color-mix(in oklab,var(--run) 70%,var(--line))}
+.mini-cards em{margin-left:auto;font:normal 12px var(--mono);color:var(--muted)}
+.board pre.diff{margin:18px -22px -22px;padding:12px 22px;background:var(--bg);border-top:1px solid var(--line)}
+.board pre.diff :is(.add,.del,.hunk){margin:0 -22px;padding:0 22px}
+.ink{display:block;width:100%;max-width:300px;height:auto;margin-top:18px}
+.ink path,.ink rect{fill:none;stroke:var(--run);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.ink rect{stroke:var(--write)}
+
+.schemes{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.schemes button{display:grid;grid-template-columns:repeat(4,7px);gap:3px;align-items:center;height:32px;padding:0 10px 0 9px;border:1px solid var(--line);border-radius:var(--r-ctl);
+  background:var(--c-bg);transition:border-color .15s}
+.schemes button i{height:14px;border-radius:var(--r-tag)}
+.schemes button span{grid-column:5;margin-left:6px;font-size:12.5px;font-weight:500;color:var(--c-text);white-space:nowrap}
+.schemes button:hover{border-color:var(--line-2)}
+.schemes button[aria-checked=true]{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
+
+/* ---------- local ---------- */
+.local{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:clamp(40px,6vw,88px);align-items:center}
+.facts{display:flex;flex-direction:column;gap:18px;margin:36px 0 0;padding:0;list-style:none;color:var(--ink-2);font-size:16px;max-width:56ch}
+.facts b{color:var(--ink);font-weight:620}
+.term pre{padding:18px 20px;font-size:13px;line-height:1.75;overflow-x:auto}
+
+/* ---------- keys ---------- */
+.key-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:0 40px;margin:48px 0 0}
+.key-list>div{display:flex;align-items:center;gap:16px;padding:14px 0;border-top:1px solid var(--line)}
+.key-list dt{display:flex;align-items:center;gap:5px;min-width:96px}
+.key-list dd{margin:0;color:var(--ink-2);font-size:15.5px}
+.plus{font-size:13px;color:var(--muted)}
+
+/* ---------- install ---------- */
+.install{background-color:var(--canvas);background-image:radial-gradient(var(--dot) 1px,transparent 1.2px);background-size:22px 22px;border-top:1px solid var(--line)}
+.install-in{display:flex;flex-direction:column;align-items:flex-start}
+.cmd.big{width:100%;max-width:880px;height:58px;margin-top:36px}
+.cmd.big code{font-size:14.5px}
+.steps{display:flex;flex-wrap:wrap;gap:12px 40px;margin:28px 0 0;padding:0;list-style:none;counter-reset:s}
+.steps li{display:flex;align-items:center;gap:12px;counter-increment:s;font-size:15px;color:var(--ink-2)}
+.steps li::before{content:counter(s);display:grid;place-items:center;width:24px;height:24px;border:1px solid var(--line-2);border-radius:50%;font:600 12px var(--mono);color:var(--ink)}
+.steps code{padding:3px 8px;border-radius:var(--r-tag);background:var(--bg);border:1px solid var(--line);color:var(--ink)}
+.req{margin:36px 0 0;max-width:70ch;font-size:15px;color:var(--ink-2)}
+.req a{color:var(--ink);text-underline-offset:3px}
+
+/* ---------- footer ---------- */
+.foot{padding:36px 0 44px;border-top:1px solid var(--line);font-size:14px;color:var(--muted)}
+.foot-in{display:flex;flex-wrap:wrap;align-items:center;gap:16px 28px}
+.foot nav{display:flex;flex-wrap:wrap;gap:4px 18px}
+.foot nav a{color:var(--ink-2);text-decoration:none}
+.foot nav a:hover{color:var(--ink);text-decoration:underline;text-underline-offset:3px}
+.foot p{margin:0 0 0 auto}
+.foot p a{color:var(--ink-2)}
+
+/* ---------- smaller screens ---------- */
+@media (max-width:980px){
+  .board{grid-template-columns:repeat(2,minmax(0,1fr));gap:36px 20px}
+  .board>.win{grid-column:auto;margin-top:0}
+  .board>.f-par,.board>.f-diff{grid-column:span 2}
+  .local{grid-template-columns:minmax(0,1fr)}
+  .foot p{margin-left:0;flex-basis:100%}
+}
+@media (max-width:640px){
+  body{font-size:16px}
+  .wrap{width:calc(100% - 32px)}
+  .bar nav,.bar .btn .lbl{display:none}
+  .bar .btn{padding:0 10px}
+  .board{grid-template-columns:minmax(0,1fr)}
+  .board>.f-par,.board>.f-diff{grid-column:auto}
+  .cta .cmd{flex-basis:100%}
+  .hint{display:none}
+}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition-duration:.01ms!important}
+}

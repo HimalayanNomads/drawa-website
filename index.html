@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Drawa: a canvas workspace for Claude Code</title>
+<meta name="description" content="Drawa lays out Claude Code's work as a map. Run several sessions side by side, see every file they read, edit and run wired to the session that touched it, and review each change in one click. Runs on your machine.">
+<meta property="og:title" content="Drawa: Claude Code's work, drawn as a map">
+<meta property="og:description" content="A canvas workspace for Claude Code. Parallel sessions, live file maps, diffs everywhere. Runs on your machine.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#f5f6f8" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1a1c1f" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<script>/* theme before first paint (src/theme.ts owns it after boot; same key and defaults) */
+  (function(){var c={};try{c=JSON.parse(localStorage.getItem('drawa-site:theme')||'{}')||{}}catch(e){}
+  var m=c.mode||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'),r=document.documentElement
+  r.dataset.theme=m;r.dataset.scheme=c[m]||(m==='dark'?'claude-dark':'claude-light')})()</script>
+<link rel="stylesheet" href="/src/styles/index.css">
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header id="top" class="bar">
+  <div class="wrap bar-in">
+    <a class="brand" href="#top" aria-label="Drawa, back to top"><span class="logo" aria-hidden="true"></span><b>Drawa</b></a>
+    <nav aria-label="Sections">
+      <a href="#features">Features</a>
+      <a href="#local">Local</a>
+      <a href="#install">Install</a>
+    </nav>
+    <span class="spacer"></span>
+    <button id="theme" class="icon" type="button" aria-label="Switch theme"></button>
+    <a class="btn" href="https://github.com/probablysamir/drawa">
+      <svg viewBox="0 0 16 16" aria-hidden="true" class="fill"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+      <span class="lbl">GitHub</span>
+    </a>
+  </div>
+</header>
+
+<main id="main">
+  <section class="hero" aria-labelledby="hero-t">
+    <div class="wrap hero-copy">
+      <h1 id="hero-t">Claude Code's work, drawn as a&nbsp;map.</h1>
+      <p class="lede">Drawa is a canvas workspace for the Claude Code CLI. Run several sessions side by side, watch every file they read, edit and run appear wired to the session that touched it, and open any change in one click. It all runs on your machine.</p>
+      <div class="cta">
+        <div class="cmd" data-copy="curl -fsSL https://raw.githubusercontent.com/probablysamir/drawa/main/install.sh | sh">
+          <code><span class="pr" aria-hidden="true">$</span> curl -fsSL https://raw.githubusercontent.com/probablysamir/drawa/main/install.sh | sh</code>
+          <button class="copy" type="button" aria-label="Copy install command">Copy</button>
+        </div>
+        <a class="btn ghost" href="https://github.com/probablysamir/drawa">View the source</a>
+      </div>
+      <p class="meta">Open source, AGPL-3.0 <i aria-hidden="true"></i> macOS and Linux <i aria-hidden="true"></i> Claude Code or OpenCode</p>
+    </div>
+
+    <!-- a working slice of the app: one session, the files it touches, colored edges. hero.ts plays it; without script it shows the finished state -->
+    <div id="stage" class="stage" role="img" aria-label="A Drawa canvas. A session card named Fix reconnect is linked by colored edges to four windows: live.go, which it read; events.go, which it edited; live_test.go, which it wrote; and a Run window where go test passed.">
+      <div id="world" class="world">
+        <svg id="edges" class="edges" aria-hidden="true">
+          <defs>
+            <marker id="m-read" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1 9 5 1 9z"/></marker>
+            <marker id="m-edit" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1 9 5 1 9z"/></marker>
+            <marker id="m-write" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1 9 5 1 9z"/></marker>
+            <marker id="m-run" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1 9 5 1 9z"/></marker>
+          </defs>
+        </svg>
+
+        <div class="win card" data-kind="session" data-state="done" id="w-card" style="left:20px;top:70px;width:440px;height:440px">
+          <div class="win-h"><span class="dot"></span><span class="t">Fix reconnect</span><span class="m">opus · auto</span></div>
+          <div class="win-b">
+            <div class="log">
+              <p class="you" data-step="0">Why does a reload drop the stream?</p>
+              <p class="say" data-step="1">A reload re-attaches from its last line, but <code>events.go</code> skips cards that aren't live yet.</p>
+              <ul class="acts">
+                <li class="read" data-step="2"><b>Read</b><span>internal/live/live.go</span></li>
+                <li class="edit" data-step="3"><b>Edit</b><span>internal/server/events.go</span><em>+2 −1</em></li>
+                <li class="write" data-step="4"><b>Write</b><span>internal/live/live_test.go</span></li>
+                <li class="run" data-step="5"><b>Run</b><span>go test ./...</span></li>
+              </ul>
+              <p class="say" data-step="6">Fixed. A reload mid-stream now starts the card's process and picks up where it left off.</p>
+            </div>
+            <div class="dock"><div class="input">Message Claude…</div></div>
+          </div>
+        </div>
+
+        <div class="win" data-kind="file" data-act="read" data-step="2" id="w-read" style="left:640px;top:0;width:470px;height:112px">
+          <div class="win-h"><span class="t" data-glyph="▤">live.go</span><span class="m">internal/live</span></div>
+          <div class="win-b"><pre><span class="k">func</span> (l *Live) <span class="f">Snapshot</span>(from <span class="k">int</span>) []Line {
+  l.mu.<span class="f">Lock</span>()</pre></div>
+        </div>
+        <div class="win" data-kind="file" data-act="edit" data-step="3" id="w-edit" style="left:640px;top:148px;width:470px;height:126px">
+          <div class="win-h"><span class="t" data-glyph="▤">events.go</span><span class="m">internal/server</span></div>
+          <div class="win-b"><pre class="diff"><span class="del">- lv, ok := live.<span class="f">Get</span>(c.ID); <span class="k">if</span> !ok { <span class="k">continue</span> }</span><span class="add">+ lv, ok := live.<span class="f">Get</span>(c.ID)</span><span class="add">+ <span class="k">if</span> !ok { lv = live.<span class="f">Start</span>(c.ID) }</span></pre></div>
+        </div>
+        <div class="win" data-kind="file" data-act="write" data-step="4" id="w-write" style="left:640px;top:310px;width:470px;height:112px">
+          <div class="win-h"><span class="t" data-glyph="▤">live_test.go</span><span class="m">new file</span></div>
+          <div class="win-b"><pre><span class="k">func</span> <span class="f">TestReattach</span>(t *testing.T) {
+  <span class="c">// reload mid-stream</span></pre></div>
+        </div>
+        <div class="win" data-kind="run" data-act="run" data-step="5" id="w-run" style="left:640px;top:458px;width:470px;height:112px">
+          <div class="win-h"><span class="t" data-glyph="▸">Run</span><span class="m">1 command</span></div>
+          <div class="win-b"><pre><span class="c">$</span> go test ./...
+<span class="ok">ok</span>  drawa/internal/live  0.41s</pre></div>
+        </div>
+      </div>
+
+      <div class="stage-nav">
+        <p class="hint">Drag a tab to move a window</p>
+        <button id="replay" class="btn" type="button">Replay</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="verbs wrap" aria-labelledby="verbs-t">
+    <h2 id="verbs-t">Four colors, and each one means something.</h2>
+    <p class="sub">Everything else on the canvas stays neutral, so what Claude did is readable from across the room.</p>
+    <ol class="verb-list">
+      <li class="read"><svg viewBox="0 0 120 12" aria-hidden="true"><path d="M2 6h108"/><path class="hd" d="M108 1l9 5-9 5z"/></svg><b>Read</b><span>Files Claude opened to understand the problem. Dotted, because nothing changed.</span></li>
+      <li class="edit"><svg viewBox="0 0 120 12" aria-hidden="true"><path d="M2 6h108"/><path class="hd" d="M108 1l9 5-9 5z"/></svg><b>Edit</b><span>Files it changed. Click one for the diff, from every session that touched it.</span></li>
+      <li class="write"><svg viewBox="0 0 120 12" aria-hidden="true"><path d="M2 6h108"/><path class="hd" d="M108 1l9 5-9 5z"/></svg><b>Write</b><span>Files it created from nothing, like the test that proves the fix.</span></li>
+      <li class="run"><svg viewBox="0 0 120 12" aria-hidden="true"><path d="M2 6h108"/><path class="hd" d="M108 1l9 5-9 5z"/></svg><b>Run</b><span>Commands it ran, collected beside the card with their output.</span></li>
+    </ol>
+  </section>
+
+  <section id="features" class="features" aria-labelledby="features-t">
+    <div class="wrap">
+      <h2 id="features-t">A whole workspace around the agent.</h2>
+      <p class="sub">Sessions, files, diffs, notes and Git share one canvas. Pan, zoom, and put things where they make sense to you.</p>
+    </div>
+    <div class="wrap board">
+      <article class="win f-par" data-kind="session">
+        <div class="win-h"><h3 class="t" data-glyph="●">Parallel sessions</h3></div>
+        <div class="win-b">
+          <p>Each card is its own live Claude process. Type any time: messages queue while Claude or its sub-agents work.</p>
+          <ul class="mini-cards" aria-label="Example sessions">
+            <li data-state="busy"><span class="dot"></span>Fix reconnect<em>working</em></li>
+            <li data-state="asking"><span class="dot"></span>Migrate settings<em>needs approval</em></li>
+            <li data-state="done"><span class="dot"></span>Write release notes<em>done</em></li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="win f-diff" data-kind="file">
+        <div class="win-h"><h3 class="t" data-glyph="▤">Diffs everywhere</h3></div>
+        <div class="win-b">
+          <p>Click a file for its changes from every session, plus the file itself with Markdown and Mermaid preview.</p>
+          <pre class="diff" aria-label="Example diff"><span class="hunk">@@ config.ts</span><span class="del">- const port = 8765</span><span class="add">+ const port = Number(env.DRAWA_PORT ?? 8765)</span></pre>
+        </div>
+      </article>
+
+      <article class="win f-agent" data-kind="agent">
+        <div class="win-h"><h3 class="t" data-glyph="◇">Sub-agents in the open</h3></div>
+        <div class="win-b">
+          <p>Every sub-agent gets a window of its own that fills in as it works, and you can message it directly.</p>
+        </div>
+      </article>
+
+      <article class="win f-tools" data-kind="plan">
+        <div class="win-h"><h3 class="t" data-glyph="✦">Claude uses the canvas too</h3></div>
+        <div class="win-b">
+          <p>Built-in tools let Claude read, create, edit and link canvas items: a diagram of the flow it traced, a note on what's left. Changes go through the usual approval.</p>
+        </div>
+      </article>
+
+      <article class="win f-board" data-kind="sketch">
+        <div class="win-h"><h3 class="t" data-glyph="✎">A whiteboard around your code</h3></div>
+        <div class="win-b">
+          <p>Sticky notes, a Markdown scratchpad, Mermaid diagrams, pictures, pinned snippets and freehand ink. <code>@</code>-mention any of them in a message, or drop one on a card.</p>
+          <svg class="ink" viewBox="0 0 260 60" aria-hidden="true"><path d="M6 44c18-26 34-30 48-14s26 18 40 0 30-22 46-4 28 16 44 2"/><path d="M196 18l24 14-24 14" /><rect x="226" y="10" width="28" height="40" rx="2"/></svg>
+        </div>
+      </article>
+
+      <article class="win f-git" data-kind="git">
+        <div class="win-h"><h3 class="t" data-glyph="⎇">Git and GitHub built in</h3></div>
+        <div class="win-b">
+          <p>Browse status and history, commit and push. Open pull requests and issues through <code>gh</code>, and send a PR, its failing checks or its reviews straight to Claude.</p>
+        </div>
+      </article>
+
+      <article class="win f-resume" data-kind="doc">
+        <div class="win-h"><h3 class="t" data-glyph="↺">Picks up where you left off</h3></div>
+        <div class="win-b">
+          <p>Resume past sessions from history. The layout survives a reload, and a reload re-attaches to sessions that are still running.</p>
+        </div>
+      </article>
+
+      <article class="win f-themes" data-kind="note">
+        <div class="win-h"><h3 class="t" data-glyph="◐">Your colors</h3></div>
+        <div class="win-b">
+          <p>Light and dark, with Rosé Pine, Catppuccin, Tokyo Night, Gruvbox, Nord, Kanagawa, Everforest, Solarized and GitHub schemes. Try one on this page:</p>
+          <div id="schemes" class="schemes" role="radiogroup" aria-label="Color scheme"></div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="local" class="local wrap" aria-labelledby="local-t">
+    <div class="local-copy">
+      <h2 id="local-t">Runs on your machine, with the Claude you already set up.</h2>
+      <p class="sub">Drawa is one binary. It drives the <code>claude</code> CLI on your PATH with your login, settings, skills and MCP servers, and serves the page on <code>127.0.0.1</code>.</p>
+      <ul class="facts">
+        <li><b>Stays local.</b> The server checks <code>Host</code> and <code>Origin</code> on every request, and file access stays inside the folder you opened.</li>
+        <li><b>Reach it from your phone.</b> <code>drawa --net</code> prints a network link with a one-time token and a QR code.</li>
+        <li><b>No Claude subscription?</b> Start OpenCode sessions instead, with any provider it supports or its free models.</li>
+      </ul>
+    </div>
+    <div class="win term" data-kind="run">
+      <div class="win-h"><span class="t" data-glyph="▸">Terminal</span><span class="m">~/code/api</span></div>
+      <div class="win-b"><pre><span class="c">$</span> drawa --net .
+  - Local:   <span class="u">http://127.0.0.1:8765</span>
+  - Network: <span class="u">http://192.168.1.23:8765/?token=fpKZrzCN</span>
+
+<span class="c">$</span> drawa https://github.com/owner/repo
+<span class="c">  cloned into the cache, opened in your browser</span></pre></div>
+    </div>
+  </section>
+
+  <section class="keys wrap" aria-labelledby="keys-t">
+    <h2 id="keys-t">Keep your hands on the keyboard.</h2>
+    <p class="sub">Single keys for the common moves, following Excalidraw's where the tool exists. They never fire while you're typing.</p>
+    <dl class="key-list">
+      <div><dt><kbd>N</kbd></dt><dd>New session</dd></div>
+      <div><dt><kbd>C</kbd></dt><dd>Next session</dd></div>
+      <div><dt><kbd>Ctrl</kbd><kbd>K</kbd></dt><dd>Find a window</dd></div>
+      <div><dt><kbd>D</kbd></dt><dd>Draw on the canvas</dd></div>
+      <div><dt><kbd>S</kbd></dt><dd>Scratchpad</dd></div>
+      <div><dt><kbd>G</kbd></dt><dd>Git</dd></div>
+      <div><dt><kbd>Shift</kbd><kbd>1</kbd></dt><dd>Fit everything</dd></div>
+      <div><dt><kbd>Space</kbd><span class="plus">+ drag</span></dt><dd>Pan</dd></div>
+    </dl>
+  </section>
+
+  <section id="install" class="install" aria-labelledby="install-t">
+    <div class="wrap install-in">
+      <h2 id="install-t">Install it in one line.</h2>
+      <p class="sub">Downloads the release binary for your OS to <code>~/.local/bin/drawa</code>. No Go or Node needed. Update later with <code>drawa --update</code>.</p>
+      <div class="cmd big" data-copy="curl -fsSL https://raw.githubusercontent.com/probablysamir/drawa/main/install.sh | sh">
+        <code><span class="pr" aria-hidden="true">$</span> curl -fsSL https://raw.githubusercontent.com/probablysamir/drawa/main/install.sh | sh</code>
+        <button class="copy" type="button" aria-label="Copy install command">Copy</button>
+      </div>
+      <ol class="steps">
+        <li><span>Open a project</span><code>cd ~/my/project &amp;&amp; drawa</code></li>
+        <li><span>Start a session</span><code>press N and type</code></li>
+      </ol>
+      <p class="req">Needs <a href="https://claude.com/claude-code">Claude Code</a> or <a href="https://opencode.ai">OpenCode</a> on your PATH. <code>git</code> and <code>gh</code> are optional. macOS or Linux; Windows isn't supported yet. <a href="https://github.com/probablysamir/drawa/blob/main/INSTALL.md">Manual downloads and building from source</a>.</p>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-in">
+    <a class="brand" href="#top" aria-label="Drawa, back to top"><span class="logo" aria-hidden="true"></span><b>Drawa</b></a>
+    <nav aria-label="Project">
+      <a href="https://github.com/probablysamir/drawa">Source</a>
+      <a href="https://github.com/probablysamir/drawa/releases/latest">Releases</a>
+      <a href="https://github.com/probablysamir/drawa/blob/main/CONTRIBUTING.md">Contributing</a>
+      <a href="https://github.com/probablysamir/drawa/blob/main/SECURITY.md">Security</a>
+    </nav>
+    <p>Licensed under the <a href="https://github.com/probablysamir/drawa/blob/main/LICENSE">GNU AGPL-3.0</a>. Not affiliated with Anthropic.</p>
+  </div>
+</footer>
+
+<script type="module" src="/src/main.ts"></script>
+</html>

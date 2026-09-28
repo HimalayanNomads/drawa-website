@@ -1,0 +1,39 @@
+/* Drawa's window shape (drawa/web/src/styles/window.css): a folder. A tab on the top-left carries the title,
+   a concave shoulder joins it to a nearly square body. --edge is the one outline color; states change only --edge
+   and the tab's top line. No blurred shadows on windows. */
+.win{display:flex;flex-direction:column;--edge:var(--line);--kind:var(--muted);min-width:0}
+.win[data-kind=session]{--kind:var(--k-session)}.win[data-kind=file]{--kind:var(--k-file)}.win[data-kind=run]{--kind:var(--k-run)}
+.win[data-kind=agent]{--kind:var(--k-agent)}.win[data-kind=plan]{--kind:var(--k-plan)}.win[data-kind=sketch]{--kind:var(--k-sketch)}
+.win[data-kind=git]{--kind:var(--k-git)}.win[data-kind=doc]{--kind:var(--k-doc)}.win[data-kind=note]{--kind:var(--k-note)}
+.win[data-act=read]{--kind:var(--read)}.win[data-act=edit]{--kind:var(--edit)}.win[data-act=write]{--kind:var(--write)}.win[data-act=run]{--kind:var(--run)}
+
+.win-h{position:relative;z-index:var(--z-sticky);display:flex;align-items:center;gap:8px;align-self:flex-start;flex:none;
+  min-width:min(180px,100%);max-width:calc(100% - var(--r-tab) - 8px);height:var(--tab-h);padding:0 14px 0 12px;
+  background:var(--rail);border:1px solid var(--edge);border-bottom:0;border-radius:var(--r-tab) var(--r-tab) 0 0;
+  transition:border-color .25s,box-shadow .25s}
+.win-h::after{content:"";position:absolute;left:100%;bottom:0;width:var(--r-tab);height:var(--r-tab);pointer-events:none;
+  background:radial-gradient(circle at 100% 0,transparent calc(var(--r-tab) - 1px),var(--edge) calc(var(--r-tab) - 1px),var(--edge) var(--r-tab),var(--rail) calc(var(--r-tab) + .6px))}
+.win-h .t{flex:0 1 auto;min-width:0;margin:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:13px;font-weight:600;color:var(--ink);letter-spacing:0}
+.win-h .t[data-glyph]::before{content:attr(data-glyph);margin-right:7px;color:var(--kind);font-weight:500}
+.win-h .m{flex:0 4 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font:11.5px var(--mono);color:var(--muted)}
+.win-b{position:relative;flex:1;min-height:0;display:flex;flex-direction:column;overflow:hidden;
+  background:var(--bg);border:1px solid var(--edge);border-radius:0 var(--r-box) var(--r-box) var(--r-box);transition:border-color .25s}
+.win:is(:hover,:focus-within){--edge:var(--line-2)}
+.win:focus-within>.win-h,.win.focus>.win-h{box-shadow:inset 0 2px 0 var(--kind)}
+
+/* session card states, as in session.css */
+.card[data-state=busy]{--edge:color-mix(in oklab,var(--accent) 60%,var(--line))}
+.card[data-state=busy]>.win-h{box-shadow:inset 0 2px 0 var(--accent)}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--line-2);flex:none;transition:background .2s}
+[data-state=busy] .dot{background:var(--accent);animation:pulse 1s ease-in-out infinite alternate}
+[data-state=asking] .dot{background:var(--run);animation:pulse .7s ease-in-out infinite alternate}
+[data-state=done] .dot{background:var(--add)}
+
+/* code inside windows */
+.win pre{margin:0;padding:12px 16px;font:12.5px/1.65 var(--mono);color:var(--ink);white-space:pre;overflow:hidden;font-variant-ligatures:none}
+.k{color:var(--syn-key)}.f{color:var(--syn-fn)}.c{color:var(--syn-com)}.ok{color:var(--add)}.u{color:var(--accent)}
+.diff .add,.diff .del,.diff .hunk{display:block;margin:0 -16px;padding:0 16px}
+.diff .add{background:var(--add-bg)}.diff .del{background:var(--del-bg)}
+.diff .hunk{color:var(--muted)}
+
+@keyframes pulse{to{opacity:.3}}

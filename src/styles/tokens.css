@@ -1,0 +1,33 @@
+/* Drawa's own tokens (drawa/web/src/styles/tokens.css), trimmed to what the site uses.
+   Every color derives from the active scheme's 13 base colors in schemes.css, copied from the app unchanged.
+   Four action colors carry meaning (read / edit / write / run); everything else stays neutral. */
+:root{
+  --canvas:var(--c-canvas);--bg:var(--c-bg);
+  --rail:color-mix(in oklab,var(--c-bg) 55%,var(--c-canvas));
+  --hover:color-mix(in oklab,var(--c-text) 7%,var(--c-bg));
+  --sel:color-mix(in oklab,var(--c-accent) 16%,var(--c-bg));
+  --line:color-mix(in oklab,var(--c-text) 13%,var(--c-bg));--line-2:color-mix(in oklab,var(--c-text) 25%,var(--c-bg));
+  --dot:color-mix(in oklab,var(--c-text) 22%,var(--c-canvas));
+  --ink:var(--c-text);--ink-2:var(--c-sub);--muted:var(--c-muted);
+  --accent:var(--c-accent);--on-accent:var(--c-bg);
+  --read:color-mix(in oklab,var(--c-blue) 60%,var(--c-muted));--edit:var(--c-cyan);--write:var(--c-purple);--run:var(--c-orange);
+  --code:color-mix(in oklab,var(--c-canvas) 55%,var(--c-bg));
+  --syn-key:var(--c-purple);--syn-str:var(--c-green);--syn-fn:var(--c-blue);--syn-com:var(--c-muted);
+  --add:var(--c-green);--add-bg:color-mix(in oklab,var(--c-green) 15%,var(--c-bg));
+  --del:var(--c-red);--del-bg:color-mix(in oklab,var(--c-red) 13%,var(--c-bg));
+  --shadow-sm:0 1px 2px oklch(0.2 0.02 255 / 0.1);
+  --sans:"Inter Variable",system-ui,sans-serif;--mono:"JetBrains Mono Variable",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --ease:cubic-bezier(.22,1,.36,1);
+
+  /* shape: the tab's curve is the only round corner on a surface; everything else is cut nearly square */
+  --r-tab:10px;--r-box:3px;--r-ctl:4px;--r-tag:2px;
+  --tab-h:34px;
+
+  --k-session:var(--accent);--k-file:var(--read);--k-run:var(--run);--k-agent:var(--write);--k-plan:var(--accent);
+  --k-sketch:var(--run);--k-git:var(--write);--k-doc:var(--ink-2);--k-note:var(--ink-2);
+
+  /* z scale: the demo canvas stacks inside its own context; the bar floats over the page */
+  --z-sticky:1;--z-over:2;--z-bar:30;
+  color-scheme:light;
+}
+:root[data-theme=dark]{--shadow-sm:0 1px 2px oklch(0 0 0 / 0.3);color-scheme:dark}
