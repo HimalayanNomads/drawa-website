@@ -1,5 +1,5 @@
 import { defineConfig } from "vite";
 
 export default defineConfig({
-  base: "/drawa-website/",
+  base: "/", // served at the root of drawa.cc
 });
