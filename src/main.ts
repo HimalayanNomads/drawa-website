@@ -1,5 +1,6 @@
 import './theme'
 import './hero'
+import './people'
 
 // copy buttons next to the install command
 for (const box of document.querySelectorAll<HTMLElement>('[data-copy]')) {
@@ -16,3 +17,4 @@ for (const box of document.querySelectorAll<HTMLElement>('[data-copy]')) {
 const bar = document.querySelector('.bar')!
 new IntersectionObserver(([e]) => bar.classList.toggle('stuck', !e.isIntersecting))
   .observe(document.querySelector('.hero h1')!)
+

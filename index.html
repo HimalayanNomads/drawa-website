@@ -227,6 +227,23 @@
     </dl>
   </section>
 
+  <section id="people" class="people wrap" aria-labelledby="people-t">
+    <h2 id="people-t">Built in the open.</h2>
+    <p class="sub">Everyone who has landed a commit in Drawa, most commits first. <a href="https://github.com/probablysamir/drawa/blob/main/CONTRIBUTING.md">Add your face here</a>.</p>
+    <!-- a slice of the canvas: the repo wired to everyone who committed to it. people.ts fills it and plays the edges in -->
+    <div id="people-board" class="people-board">
+      <svg class="edges" aria-hidden="true"></svg>
+      <div class="win repo" data-kind="git">
+        <div class="win-h"><span class="t" data-glyph="⎇">drawa</span><span class="m">main</span></div>
+        <div class="win-b"><pre><span class="c">$</span> git shortlog -sn
+<span id="people-sum" class="c">counting…</span></pre></div>
+      </div>
+      <ul id="contributors" class="contributors" aria-label="Contributors">
+        <li class="none"><a href="https://github.com/probablysamir/drawa/graphs/contributors">See contributors on GitHub</a></li>
+      </ul>
+    </div>
+  </section>
+
   <section id="install" class="install" aria-labelledby="install-t">
     <div class="wrap install-in">
       <h2 id="install-t">Install it in one line.</h2>
