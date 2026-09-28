@@ -2,11 +2,17 @@
 <html lang="en">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Drawa: a canvas workspace for Claude Code</title>
-<meta name="description" content="Drawa lays out Claude Code's work as a map. Run several sessions side by side, see every file they read, edit and run wired to the session that touched it, and review each change in one click. Runs on your machine.">
-<meta property="og:title" content="Drawa: Claude Code's work, drawn as a map">
-<meta property="og:description" content="A canvas workspace for Claude Code. Parallel sessions, live file maps, diffs everywhere. Runs on your machine.">
+<title>Drawa: a canvas workspace for coding agents</title>
+<meta name="description" content="Drawa lays out your coding agent's work as a map. Run Claude Code or OpenCode sessions side by side, see every file they read, edit and run wired to the session that touched it, and review each change in one click. Runs on your machine.">
+<meta property="og:title" content="Drawa: your coding agent's work, drawn as a map">
+<meta property="og:description" content="A canvas workspace for Claude Code and OpenCode. Parallel sessions, live file maps, diffs everywhere. Runs on your machine.">
 <meta property="og:type" content="website">
+<meta property="og:url" content="https://drawa.cc/">
+<meta property="og:image" content="https://drawa.cc/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Drawa: an agent session card wired by colored edges to the files it read, edited and wrote, and the tests it ran.">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#f5f6f8" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#1a1c1f" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -38,8 +44,8 @@
 <main id="main">
   <section class="hero" aria-labelledby="hero-t">
     <div class="wrap hero-copy">
-      <h1 id="hero-t">Claude Code's work, drawn as a&nbsp;map.</h1>
-      <p class="lede">Drawa is a canvas workspace for the Claude Code CLI. Run several sessions side by side, watch every file they read, edit and run appear wired to the session that touched it, and open any change in one click. It all runs on your machine.</p>
+      <h1 id="hero-t">Your coding agent's work, drawn as a&nbsp;map.</h1>
+      <p class="lede">Drawa is a canvas workspace for coding agents, starting with Claude Code and OpenCode. Run several sessions side by side, watch every file they read, edit and run appear wired to the session that touched it, and open any change in one click. It all runs on your machine.</p>
       <div class="cta">
         <div class="cmd" data-copy="curl -fsSL https://raw.githubusercontent.com/probablysamir/drawa/main/install.sh | sh">
           <code><span class="pr" aria-hidden="true">$</span> curl -fsSL https://raw.githubusercontent.com/probablysamir/drawa/main/install.sh | sh</code>
@@ -110,9 +116,9 @@
 
   <section class="verbs wrap" aria-labelledby="verbs-t">
     <h2 id="verbs-t">Four colors, and each one means something.</h2>
-    <p class="sub">Everything else on the canvas stays neutral, so what Claude did is readable from across the room.</p>
+    <p class="sub">Everything else on the canvas stays neutral, so what the agent did is readable from across the room.</p>
     <ol class="verb-list">
-      <li class="read"><svg viewBox="0 0 120 12" aria-hidden="true"><path d="M2 6h108"/><path class="hd" d="M108 1l9 5-9 5z"/></svg><b>Read</b><span>Files Claude opened to understand the problem. Dotted, because nothing changed.</span></li>
+      <li class="read"><svg viewBox="0 0 120 12" aria-hidden="true"><path d="M2 6h108"/><path class="hd" d="M108 1l9 5-9 5z"/></svg><b>Read</b><span>Files the agent opened to understand the problem. Dotted, because nothing changed.</span></li>
       <li class="edit"><svg viewBox="0 0 120 12" aria-hidden="true"><path d="M2 6h108"/><path class="hd" d="M108 1l9 5-9 5z"/></svg><b>Edit</b><span>Files it changed. Click one for the diff, from every session that touched it.</span></li>
       <li class="write"><svg viewBox="0 0 120 12" aria-hidden="true"><path d="M2 6h108"/><path class="hd" d="M108 1l9 5-9 5z"/></svg><b>Write</b><span>Files it created from nothing, like the test that proves the fix.</span></li>
       <li class="run"><svg viewBox="0 0 120 12" aria-hidden="true"><path d="M2 6h108"/><path class="hd" d="M108 1l9 5-9 5z"/></svg><b>Run</b><span>Commands it ran, collected beside the card with their output.</span></li>
@@ -128,7 +134,7 @@
       <article class="win f-par" data-kind="session">
         <div class="win-h"><h3 class="t" data-glyph="●">Parallel sessions</h3></div>
         <div class="win-b">
-          <p>Each card is its own live Claude process. Type any time: messages queue while Claude or its sub-agents work.</p>
+          <p>Each card is its own live agent process. Type any time: messages queue while the agent or its sub-agents work.</p>
           <ul class="mini-cards" aria-label="Example sessions">
             <li data-state="busy"><span class="dot"></span>Fix reconnect<em>working</em></li>
             <li data-state="asking"><span class="dot"></span>Migrate settings<em>needs approval</em></li>
@@ -170,7 +176,7 @@
       <article class="win f-git" data-kind="git">
         <div class="win-h"><h3 class="t" data-glyph="⎇">Git and GitHub built in</h3></div>
         <div class="win-b">
-          <p>Browse status and history, commit and push. Open pull requests and issues through <code>gh</code>, and send a PR, its failing checks or its reviews straight to Claude.</p>
+          <p>Browse status and history, commit and push. Open pull requests and issues through <code>gh</code>, and send a PR, its failing checks or its reviews straight to a session.</p>
         </div>
       </article>
 
@@ -193,8 +199,8 @@
 
   <section id="local" class="local wrap" aria-labelledby="local-t">
     <div class="local-copy">
-      <h2 id="local-t">Runs on your machine, with the Claude you already set up.</h2>
-      <p class="sub">Drawa is one binary. It drives the <code>claude</code> CLI on your PATH with your login, settings, skills and MCP servers, and serves the page on <code>127.0.0.1</code>.</p>
+      <h2 id="local-t">Runs on your machine, with the agent you already set up.</h2>
+      <p class="sub">Drawa is one binary. It drives the <code>claude</code> or <code>opencode</code> CLI on your PATH with your login, settings, skills and MCP servers, and serves the page on <code>127.0.0.1</code>.</p>
       <ul class="facts">
         <li><b>Stays local.</b> The server checks <code>Host</code> and <code>Origin</code> on every request, and file access stays inside the folder you opened.</li>
         <li><b>Reach it from your phone.</b> <code>drawa --net</code> prints a network link with a one-time token and a QR code.</li>
