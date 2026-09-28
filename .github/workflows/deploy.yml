@@ -6,7 +6,7 @@ on:
       - main
   workflow_dispatch:
   schedule:
-    - cron: '17 3 * * *' # daily, to refresh contributors.json
+    - cron: '17 * * * *' # hourly, to refresh contributors.json
 
 permissions:
   contents: read

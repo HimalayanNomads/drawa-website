@@ -1,6 +1,6 @@
 // Builds public/contributors.json for the "Built in the open" board: everyone who committed to Drawa, opened an
 // issue or pull request, or commented on one, with a count for each. Runs before dev and build (the deploy runs it
-// daily too), so visitors read one static file instead of spending their 60/h GitHub API budget.
+// hourly too), so visitors read one static file instead of spending their 60/h GitHub API budget.
 // Uses GITHUB_TOKEN when set (CI); unauthenticated works locally. On failure it warns and writes nothing, and the
 // page keeps its link to GitHub's contributors graph.
 import { writeFile, mkdir } from 'node:fs/promises'
