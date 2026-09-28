@@ -157,6 +157,27 @@ h2{font-size:clamp(1.8rem,1.1rem + 2.4vw,2.9rem);line-height:1.08;font-weight:68
 .key-list dd{margin:0;color:var(--ink-2);font-size:15.5px}
 .plus{font-size:13px;color:var(--muted)}
 
+/* ---------- contributors: the repo's git window wired to one window per person ---------- */
+.people .sub a{color:var(--ink);text-underline-offset:3px}
+/* one column fans out like the hero; people.ts caps it at 6 windows plus one "+N more" */
+.people-board{position:relative;display:grid;grid-template-columns:260px minmax(0,380px);gap:40px clamp(96px,14vw,200px);align-items:center;margin-top:56px}
+.people-board .tag{font-size:11px}
+.repo pre{padding:14px 16px}
+.contributors{display:flex;flex-direction:column;gap:22px;margin:0;padding:0;list-style:none}
+.contributors a.win{text-decoration:none}
+.contributors .win-b{flex-direction:row;align-items:center;gap:14px;padding:12px 14px}
+.contributors img{flex:none;border-radius:50%;background:var(--rail)}
+.contributors em{font:normal 12.5px var(--mono);color:var(--muted)}
+.contributors em b{font-weight:600;color:var(--edit);font-variant-numeric:tabular-nums}
+.contributors .none a{color:var(--ink-2)}
+.contributors .more .win-b{flex-direction:column;align-items:flex-start;gap:10px}
+.faces{display:flex;flex-wrap:wrap;gap:6px}
+.faces a{display:block;border-radius:50%;transition:translate .15s}
+.faces a:hover{translate:0 -2px}
+.faces img{display:block;width:28px;height:28px}
+.people-board .edge{transition:opacity .4s,stroke-width .15s}
+.people-board .edge.hot{stroke-width:2.75;opacity:1}
+
 /* ---------- install ---------- */
 .install{background-color:var(--canvas);background-image:radial-gradient(var(--dot) 1px,transparent 1.2px);background-size:22px 22px;border-top:1px solid var(--line)}
 .install-in{display:flex;flex-direction:column;align-items:flex-start}
@@ -184,6 +205,9 @@ h2{font-size:clamp(1.8rem,1.1rem + 2.4vw,2.9rem);line-height:1.08;font-weight:68
   .board>.win{grid-column:auto;margin-top:0}
   .board>.f-par,.board>.f-diff{grid-column:span 2}
   .local{grid-template-columns:minmax(0,1fr)}
+  .people-board{grid-template-columns:minmax(0,1fr)}
+  .people-board .repo{max-width:320px}
+  .contributors{padding-left:48px}
   .foot p{margin-left:0;flex-basis:100%}
 }
 @media (max-width:640px){
