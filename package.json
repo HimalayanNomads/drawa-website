@@ -3,7 +3,10 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "contributors": "node scripts/contributors.mjs",
+    "predev": "npm run contributors",
     "dev": "vite",
+    "prebuild": "npm run contributors",
     "build": "tsc && vite build",
     "preview": "vite preview"
   },
