@@ -24,7 +24,10 @@ p{text-wrap:pretty}
 .btn:active{transform:translateY(1px)}
 .btn svg{width:16px;height:16px}
 .btn.ghost{height:44px;padding:0 18px;font-size:15px;border-color:var(--line-2)}
-.github-star-btn .stars{font:600 12px/1 var(--mono);padding:4px 7px;border:1px solid var(--line);border-radius:999px;background:var(--rail);color:var(--ink)}
+.github-star-btn .stars{display:inline-flex;align-items:center;justify-content:center;min-width:58px;height:22px;padding:0 8px;border-radius:999px;
+  font:600 11.5px/1 var(--mono);font-variant-numeric:tabular-nums;color:color-mix(in oklab,var(--accent) 74%,var(--ink));
+  background:color-mix(in oklab,var(--accent) 16%,transparent);transition:background .15s,color .15s}
+.github-star-btn:hover .stars{background:color-mix(in oklab,var(--accent) 22%,transparent)}
 .icon{display:inline-grid;place-items:center;width:36px;height:36px;border-radius:var(--r-ctl);color:var(--muted);transition:background .15s,color .15s}
 .icon:hover{background:var(--hover);color:var(--ink)}
 .icon svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
@@ -218,7 +221,7 @@ h2{font-size:clamp(1.8rem,1.1rem + 2.4vw,2.9rem);line-height:1.08;font-weight:68
   .wrap{width:calc(100% - 32px)}
   .bar nav,.bar .btn .lbl{display:none}
   .bar .btn{padding:0 10px}
-  .bar .btn .stars{font-size:11px;padding:3px 6px}
+  .bar .btn .stars{min-width:52px;height:20px;padding:0 7px;font-size:11px}
   .board{grid-template-columns:minmax(0,1fr)}
   .board>.f-par,.board>.f-diff{grid-column:auto}
   .cta .cmd{flex-basis:100%}
