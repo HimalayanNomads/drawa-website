@@ -18,3 +18,14 @@ const bar = document.querySelector('.bar')!
 new IntersectionObserver(([e]) => bar.classList.toggle('stuck', !e.isIntersecting))
   .observe(document.querySelector('.hero h1')!)
 
+const stars = [...document.querySelectorAll<HTMLElement>('[data-github-stars]')]
+if (stars.length) {
+  fetch('https://api.github.com/repos/probablysamir/drawa')
+    .then(r => r.ok ? r.json() : Promise.reject())
+    .then((repo: { stargazers_count?: number }) => {
+      if (typeof repo.stargazers_count !== 'number') return
+      const n = new Intl.NumberFormat('en-US').format(repo.stargazers_count)
+      stars.forEach(el => { el.textContent = `★ ${n}` })
+    })
+    .catch(() => {})
+}
