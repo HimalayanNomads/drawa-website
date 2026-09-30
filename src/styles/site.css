@@ -202,8 +202,6 @@ h2{font-size:clamp(1.8rem,1.1rem + 2.4vw,2.9rem);line-height:1.08;font-weight:68
 .foot p{margin:0 0 0 auto}
 .foot p a{color:var(--ink-2)}
 
-.github-float{position:fixed;right:20px;bottom:20px;z-index:calc(var(--z-bar) + 1);height:42px;padding:0 14px;background:var(--bg);box-shadow:0 8px 20px color-mix(in oklab,var(--ink) 18%,transparent)}
-
 /* ---------- smaller screens ---------- */
 @media (max-width:980px){
   .board{grid-template-columns:repeat(2,minmax(0,1fr));gap:36px 20px}
@@ -221,7 +219,6 @@ h2{font-size:clamp(1.8rem,1.1rem + 2.4vw,2.9rem);line-height:1.08;font-weight:68
   .bar nav,.bar .btn .lbl{display:none}
   .bar .btn{padding:0 10px}
   .bar .btn .stars{font-size:11px;padding:3px 6px}
-  .github-float{right:12px;left:12px;bottom:12px;justify-content:center}
   .board{grid-template-columns:minmax(0,1fr)}
   .board>.f-par,.board>.f-diff{grid-column:auto}
   .cta .cmd{flex-basis:100%}
