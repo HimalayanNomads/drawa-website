@@ -23,6 +23,7 @@ p{text-wrap:pretty}
 .btn:hover{border-color:var(--line-2);background:var(--hover)}
 .btn:active{transform:translateY(1px)}
 .btn svg{width:16px;height:16px}
+.btn .stars{padding-left:8px;border-left:1px solid var(--line);color:var(--ink-2);font-variant-numeric:tabular-nums}
 .btn.ghost{height:44px;padding:0 18px;font-size:15px;border-color:var(--line-2)}
 .icon{display:inline-grid;place-items:center;width:36px;height:36px;border-radius:var(--r-ctl);color:var(--muted);transition:background .15s,color .15s}
 .icon:hover{background:var(--hover);color:var(--ink)}
@@ -191,6 +192,20 @@ h2{font-size:clamp(1.8rem,1.1rem + 2.4vw,2.9rem);line-height:1.08;font-weight:68
 .steps code{padding:3px 8px;border-radius:var(--r-tag);background:var(--bg);border:1px solid var(--line);color:var(--ink)}
 .req{margin:36px 0 0;max-width:70ch;font-size:15px;color:var(--ink-2)}
 .req a{color:var(--ink);text-underline-offset:3px}
+.facts.req{gap:12px}
+.star{width:100%;max-width:880px;margin-top:44px}
+.star .win-b{padding:20px 22px 22px}
+.star p{margin:0;max-width:60ch;color:var(--ink-2)}
+.star-acts{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.btn.primary{height:44px;padding:0 18px;font-size:15px;background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.btn.primary:hover{background:color-mix(in oklab,var(--accent) 88%,var(--ink))}
+.btn.primary svg{fill:currentColor}
+.btn.primary .stars{border-color:color-mix(in oklab,var(--on-accent) 35%,transparent);color:inherit}
+.agents{display:grid;grid-template-columns:auto auto 1fr;gap:10px 24px;align-items:center;margin:36px 0 0;padding:0;list-style:none;font-size:15px;color:var(--ink-2)}
+.agents li{display:contents}
+.agents a{color:var(--ink);text-underline-offset:3px}
+.agents code{justify-self:start;padding:3px 8px;border-radius:var(--r-tag);background:var(--bg);border:1px solid var(--line);color:var(--ink);font-size:13px}
+@media (max-width:720px){.agents{grid-template-columns:minmax(0,1fr);gap:4px}.agents li{display:block;margin-bottom:12px}.agents b,.agents code{display:block;margin-top:4px;width:max-content;max-width:100%;overflow-x:auto}}
 
 /* ---------- footer ---------- */
 .foot{padding:36px 0 44px;border-top:1px solid var(--line);font-size:14px;color:var(--muted)}

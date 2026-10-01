@@ -2,3 +2,4 @@ node_modules
 dist
 screenshots
 public/contributors.json
+public/repo.json

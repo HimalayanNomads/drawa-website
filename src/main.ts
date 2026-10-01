@@ -18,3 +18,11 @@ const bar = document.querySelector('.bar')!
 new IntersectionObserver(([e]) => bar.classList.toggle('stuck', !e.isIntersecting))
   .observe(document.querySelector('.hero h1')!)
 
+
+// star count on the GitHub buttons, from repo.json (written at build time)
+fetch('/repo.json').then(r => r.json()).then(({ stars }) => {
+  for (const s of document.querySelectorAll<HTMLElement>('.stars')) {
+    s.textContent = stars.toLocaleString('en')
+    s.hidden = false
+  }
+}).catch(() => {})

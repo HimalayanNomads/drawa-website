@@ -2,13 +2,15 @@
 <html lang="en">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Drawa: a canvas workspace for coding agents</title>
-<meta name="description" content="Drawa lays out your coding agent's work as a map. Run Claude Code or OpenCode sessions side by side, see every file they read, edit and run wired to the session that touched it, and review each change in one click. Runs on your machine.">
+<title>Drawa: a canvas workspace for Claude Code, Codex and OpenCode</title>
+<meta name="description" content="Run Claude Code, Codex and OpenCode side by side on one canvas. See every file your agents read, edit and run, and review each change. Free, open source, local.">
 <meta property="og:title" content="Drawa: your coding agent's work, drawn as a map">
-<meta property="og:description" content="A canvas workspace for Claude Code and OpenCode. Parallel sessions, live file maps, diffs everywhere. Runs on your machine.">
+<meta property="og:description" content="A canvas workspace for Claude Code, OpenCode and Codex. Parallel sessions, live file maps, diffs everywhere. Runs on your machine.">
 <meta property="og:type" content="website">
+<meta property="og:site_name" content="Drawa">
+<meta property="og:locale" content="en_US">
 <meta property="og:url" content="https://drawa.cc/">
-<meta property="og:image" content="https://drawa.cc/og.png?v=2">
+<meta property="og:image" content="https://drawa.cc/og.png?v=3">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Drawa: an agent session card wired by colored edges to the files it read, edited and wrote, and the tests it ran.">
@@ -16,10 +18,14 @@
 <meta name="theme-color" content="#f5f6f8" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#1a1c1f" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="canonical" href="https://drawa.cc/">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Drawa","url":"https://drawa.cc/","description":"A canvas workspace for coding agents: run Claude Code, OpenCode and Codex sessions side by side, see every file they touch, and review each change.","applicationCategory":"DeveloperApplication","operatingSystem":"macOS, Linux","license":"https://www.gnu.org/licenses/agpl-3.0.html","codeRepository":"https://github.com/HimalayanNomads/drawa","image":"https://drawa.cc/og.png","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
 <script>/* theme before first paint (src/theme.ts owns it after boot; same key and defaults) */
   (function(){var c={};try{c=JSON.parse(localStorage.getItem('drawa-site:theme')||'{}')||{}}catch(e){}
   var m=c.mode||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'),r=document.documentElement
   r.dataset.theme=m;r.dataset.scheme=c[m]||(m==='dark'?'claude-dark':'claude-light')})()</script>
+<link rel="preload" href="/node_modules/@fontsource-variable/inter/files/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/src/styles/index.css">
 
 <a class="skip" href="#main">Skip to content</a>
@@ -34,9 +40,9 @@
     </nav>
     <span class="spacer"></span>
     <button id="theme" class="icon" type="button" aria-label="Switch theme"></button>
-    <a class="btn" href="https://github.com/probablysamir/drawa">
+    <a class="btn" href="https://github.com/HimalayanNomads/drawa" aria-label="Star Drawa on GitHub">
       <svg viewBox="0 0 16 16" aria-hidden="true" class="fill"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
-      <span class="lbl">GitHub</span>
+      <span class="lbl">Star</span><span class="stars" hidden></span>
     </a>
   </div>
 </header>
@@ -45,15 +51,15 @@
   <section class="hero" aria-labelledby="hero-t">
     <div class="wrap hero-copy">
       <h1 id="hero-t">Your coding agent's work, drawn as a&nbsp;map.</h1>
-      <p class="lede">Drawa is a canvas workspace for coding agents, starting with Claude Code and OpenCode. Run several sessions side by side, watch every file they read, edit and run appear wired to the session that touched it, and open any change in one click. It all runs on your machine.</p>
+      <p class="lede">Drawa is a canvas workspace for coding agents, starting with Claude Code, OpenCode and Codex. Run several sessions side by side, watch every file they read, edit and run appear wired to the session that touched it, and open any change in one click. It all runs on your machine.</p>
       <div class="cta">
-        <div class="cmd" data-copy="curl -fsSL https://raw.githubusercontent.com/probablysamir/drawa/main/install.sh | sh">
-          <code><span class="pr" aria-hidden="true">$</span> curl -fsSL https://raw.githubusercontent.com/probablysamir/drawa/main/install.sh | sh</code>
+        <div class="cmd" data-copy="curl -fsSL https://raw.githubusercontent.com/HimalayanNomads/drawa/main/install.sh | sh">
+          <code><span class="pr" aria-hidden="true">$</span> curl -fsSL https://raw.githubusercontent.com/HimalayanNomads/drawa/main/install.sh | sh</code>
           <button class="copy" type="button" aria-label="Copy install command">Copy</button>
         </div>
-        <a class="btn ghost" href="https://github.com/probablysamir/drawa">View the source</a>
+        <a class="btn ghost" href="https://github.com/HimalayanNomads/drawa">View the source</a>
       </div>
-      <p class="meta">Open source, AGPL-3.0 <i aria-hidden="true"></i> macOS and Linux <i aria-hidden="true"></i> Claude Code or OpenCode</p>
+      <p class="meta">Open source, AGPL-3.0 <i aria-hidden="true"></i> macOS and Linux <i aria-hidden="true"></i> Claude Code, OpenCode or Codex</p>
     </div>
 
     <!-- a working slice of the app: one session, the files it touches, colored edges. hero.ts plays it; without script it shows the finished state -->
@@ -200,11 +206,11 @@
   <section id="local" class="local wrap" aria-labelledby="local-t">
     <div class="local-copy">
       <h2 id="local-t">Runs on your machine, with the agent you already set up.</h2>
-      <p class="sub">Drawa is one binary. It drives the <code>claude</code> or <code>opencode</code> CLI on your PATH with your login, settings, skills and MCP servers, and serves the page on <code>127.0.0.1</code>.</p>
+      <p class="sub">Drawa is one binary. It drives the <code>claude</code>, <code>opencode</code> or <code>codex</code> CLI on your PATH with your login, settings, skills and MCP servers, and serves the page on <code>127.0.0.1</code>.</p>
       <ul class="facts">
         <li><b>Stays local.</b> The server checks <code>Host</code> and <code>Origin</code> on every request, and file access stays inside the folder you opened.</li>
         <li><b>Reach it from your phone.</b> <code>drawa --net</code> prints a network link with a one-time token and a QR code.</li>
-        <li><b>No Claude subscription?</b> Start OpenCode sessions instead, with any provider it supports or its free models.</li>
+        <li><b>No Claude subscription?</b> Start OpenCode sessions with any provider it supports or its free models, or Codex with your ChatGPT plan.</li>
       </ul>
     </div>
     <div class="win term" data-kind="run">
@@ -235,7 +241,7 @@
 
   <section id="people" class="people wrap" aria-labelledby="people-t">
     <h2 id="people-t">Built in the open.</h2>
-    <p class="sub">Everyone who has committed to Drawa, opened an issue or pull request, or joined the discussion, most active first. <a href="https://github.com/probablysamir/drawa/blob/main/CONTRIBUTING.md">Add your face here</a>.</p>
+    <p class="sub">Everyone who has committed to Drawa, opened an issue or pull request, or joined the discussion, most active first. <a href="https://github.com/HimalayanNomads/drawa/blob/main/CONTRIBUTING.md">Add your face here</a>.</p>
     <!-- a slice of the canvas: the repo wired to everyone who committed to it. people.ts fills it and plays the edges in -->
     <div id="people-board" class="people-board">
       <svg class="edges" aria-hidden="true"></svg>
@@ -245,7 +251,7 @@
 <span id="people-sum" class="c">counting…</span></pre></div>
       </div>
       <ul id="contributors" class="contributors" aria-label="Contributors">
-        <li class="none"><a href="https://github.com/probablysamir/drawa/graphs/contributors">See contributors on GitHub</a></li>
+        <li class="none"><a href="https://github.com/HimalayanNomads/drawa/graphs/contributors">See contributors on GitHub</a></li>
       </ul>
     </div>
   </section>
@@ -254,15 +260,35 @@
     <div class="wrap install-in">
       <h2 id="install-t">Install it in one line.</h2>
       <p class="sub">Downloads the release binary for your OS to <code>~/.local/bin/drawa</code>. No Go or Node needed. Update later with <code>drawa --update</code>.</p>
-      <div class="cmd big" data-copy="curl -fsSL https://raw.githubusercontent.com/probablysamir/drawa/main/install.sh | sh">
-        <code><span class="pr" aria-hidden="true">$</span> curl -fsSL https://raw.githubusercontent.com/probablysamir/drawa/main/install.sh | sh</code>
+      <div class="cmd big" data-copy="curl -fsSL https://raw.githubusercontent.com/HimalayanNomads/drawa/main/install.sh | sh">
+        <code><span class="pr" aria-hidden="true">$</span> curl -fsSL https://raw.githubusercontent.com/HimalayanNomads/drawa/main/install.sh | sh</code>
         <button class="copy" type="button" aria-label="Copy install command">Copy</button>
       </div>
       <ol class="steps">
         <li><span>Open a project</span><code>cd ~/my/project &amp;&amp; drawa</code></li>
         <li><span>Start a session</span><code>press N and type</code></li>
       </ol>
-      <p class="req">Needs <a href="https://claude.com/claude-code">Claude Code</a> or <a href="https://opencode.ai">OpenCode</a> on your PATH. <code>git</code> and <code>gh</code> are optional. macOS or Linux; Windows isn't supported yet. <a href="https://github.com/probablysamir/drawa/blob/main/INSTALL.md">Manual downloads and building from source</a>.</p>
+      <ul class="agents" aria-label="Which agent to install">
+        <li><span>Claude Pro or Max plan</span><b><a href="https://claude.com/claude-code">Claude Code</a></b><code>curl -fsSL https://claude.ai/install.sh | bash</code></li>
+        <li><span>ChatGPT plan or OpenAI API key</span><b><a href="https://developers.openai.com/codex/cli">Codex</a></b><code>npm install -g @openai/codex</code></li>
+        <li><span>No paid plan, or another provider</span><b><a href="https://opencode.ai">OpenCode</a></b><code>curl -fsSL https://opencode.ai/install | bash</code></li>
+      </ul>
+      <ul class="facts req">
+        <li><b>One agent, logged in.</b> Any of the three on your PATH is enough. <code>git</code> and <code>gh</code> are optional.</li>
+        <li><b>On Windows?</b> It isn't supported natively yet, but it runs inside <a href="https://learn.microsoft.com/windows/wsl/install">WSL2</a>. Install your agent there too.</li>
+        <li><b><code>drawa: command not found</code>?</b> Add <code>~/.local/bin</code> to your PATH, or see <a href="https://github.com/HimalayanNomads/drawa/blob/main/INSTALL.md">manual downloads and building from source</a>.</li>
+      </ul>
+      <div class="win star" data-kind="note">
+        <div class="win-h"><h3 class="t" data-glyph="★">Like Drawa?</h3></div>
+        <div class="win-b">
+          <p>A star on GitHub helps more people find it. Hit a bug or have an idea? Tell us, it shapes what gets built next.</p>
+          <div class="star-acts">
+            <a class="btn primary" href="https://github.com/HimalayanNomads/drawa"><svg viewBox="0 0 16 16" aria-hidden="true" class="fill"><path d="M8 .7l2.2 4.6 5 .7-3.6 3.5.9 5L8 12.1l-4.5 2.4.9-5L.8 6l5-.7z"/></svg>Star on GitHub<span class="stars" hidden></span></a>
+            <a class="btn ghost" href="https://github.com/HimalayanNomads/drawa/issues/new">Report a bug</a>
+            <a class="btn ghost" href="https://github.com/HimalayanNomads/drawa/discussions">Share an idea</a>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 </main>
@@ -271,12 +297,14 @@
   <div class="wrap foot-in">
     <a class="brand" href="#top" aria-label="Drawa, back to top"><span class="logo" aria-hidden="true"></span><b>Drawa</b></a>
     <nav aria-label="Project">
-      <a href="https://github.com/probablysamir/drawa">Source</a>
-      <a href="https://github.com/probablysamir/drawa/releases/latest">Releases</a>
-      <a href="https://github.com/probablysamir/drawa/blob/main/CONTRIBUTING.md">Contributing</a>
-      <a href="https://github.com/probablysamir/drawa/blob/main/SECURITY.md">Security</a>
+      <a href="https://github.com/HimalayanNomads/drawa">Source</a>
+      <a href="https://github.com/HimalayanNomads/drawa/releases/latest">Releases</a>
+      <a href="https://github.com/HimalayanNomads/drawa/issues">Issues</a>
+      <a href="https://github.com/HimalayanNomads/drawa/discussions">Discussions</a>
+      <a href="https://github.com/HimalayanNomads/drawa/blob/main/CONTRIBUTING.md">Contributing</a>
+      <a href="https://github.com/HimalayanNomads/drawa/blob/main/SECURITY.md">Security</a>
     </nav>
-    <p>Licensed under the <a href="https://github.com/probablysamir/drawa/blob/main/LICENSE">GNU AGPL-3.0</a>. Not affiliated with Anthropic.</p>
+    <p>Licensed under the <a href="https://github.com/HimalayanNomads/drawa/blob/main/LICENSE">GNU AGPL-3.0</a>. Not affiliated with Anthropic or OpenAI.</p>
   </div>
 </footer>
 
