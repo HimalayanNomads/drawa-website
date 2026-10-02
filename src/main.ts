@@ -1,6 +1,8 @@
 import './theme'
 import './hero'
 import './people'
+import './tabs'
+import './tour'
 
 // copy buttons next to the install command
 for (const box of document.querySelectorAll<HTMLElement>('[data-copy]')) {
