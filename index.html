@@ -2,13 +2,15 @@
 <html lang="en">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Drawa: a canvas workspace for coding agents</title>
-<meta name="description" content="Drawa lays out your coding agent's work as a map. Run Claude Code, OpenCode, Codex or Antigravity sessions side by side, see every file they read, edit and run wired to the session that touched it, and review each change in one click. Runs on your machine.">
+<title>Drawa: a canvas workspace for Claude Code, Codex, OpenCode and Antigravity</title>
+<meta name="description" content="Run Claude Code, Codex, OpenCode and Antigravity side by side on one canvas. See every file your agents read, edit and run, and review each change. Free, open source, local.">
 <meta property="og:title" content="Drawa: your coding agent's work, drawn as a map">
 <meta property="og:description" content="A canvas workspace for Claude Code, OpenCode, Codex and Antigravity. Parallel sessions, live file maps, diffs everywhere. Runs on your machine.">
 <meta property="og:type" content="website">
+<meta property="og:site_name" content="Drawa">
+<meta property="og:locale" content="en_US">
 <meta property="og:url" content="https://drawa.cc/">
-<meta property="og:image" content="https://drawa.cc/og.png?v=3">
+<meta property="og:image" content="https://drawa.cc/og.png?v=4">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Drawa: an agent session card wired by colored edges to the files it read, edited and wrote, and the tests it ran.">
@@ -16,10 +18,14 @@
 <meta name="theme-color" content="#f5f6f8" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#1a1c1f" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="canonical" href="https://drawa.cc/">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Drawa","url":"https://drawa.cc/","description":"A canvas workspace for coding agents: run Claude Code, OpenCode, Codex and Antigravity sessions side by side, see every file they touch, and review each change.","applicationCategory":"DeveloperApplication","operatingSystem":"macOS, Linux","license":"https://www.gnu.org/licenses/agpl-3.0.html","codeRepository":"https://github.com/HimalayanNomads/drawa","image":"https://drawa.cc/og.png","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
 <script>/* theme before first paint (src/theme.ts owns it after boot; same key and defaults) */
   (function(){var c={};try{c=JSON.parse(localStorage.getItem('drawa-site:theme')||'{}')||{}}catch(e){}
   var m=c.mode||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'),r=document.documentElement
   r.dataset.theme=m;r.dataset.scheme=c[m]||(m==='dark'?'claude-dark':'claude-light')})()</script>
+<link rel="preload" href="/node_modules/@fontsource-variable/inter/files/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/src/styles/index.css">
 
 <a class="skip" href="#main">Skip to content</a>
@@ -29,14 +35,16 @@
     <a class="brand" href="#top" aria-label="Drawa, back to top"><span class="logo" aria-hidden="true"></span><b>Drawa</b></a>
     <nav aria-label="Sections">
       <a href="#features">Features</a>
-      <a href="#local">Local</a>
+      <a href="#tour">Tour</a>
+      <a href="#agents">Agents</a>
+      <a href="#docs">Docs</a>
       <a href="#install">Install</a>
     </nav>
     <span class="spacer"></span>
     <button id="theme" class="icon" type="button" aria-label="Switch theme"></button>
-    <a class="btn" href="https://github.com/probablysamir/drawa">
+    <a class="btn" href="https://github.com/HimalayanNomads/drawa" aria-label="Star Drawa on GitHub">
       <svg viewBox="0 0 16 16" aria-hidden="true" class="fill"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
-      <span class="lbl">GitHub</span>
+      <span class="lbl">Star</span><span class="stars" hidden></span>
     </a>
   </div>
 </header>
@@ -45,13 +53,13 @@
   <section class="hero" aria-labelledby="hero-t">
     <div class="wrap hero-copy">
       <h1 id="hero-t">Your coding agent's work, drawn as a&nbsp;map.</h1>
-      <p class="lede">Drawa is a canvas workspace for coding agents: Claude Code, OpenCode, Codex and Antigravity. Run several sessions side by side, watch every file they read, edit and run appear wired to the session that touched it, and open any change in one click. It all runs on your machine.</p>
+      <p class="lede">Drawa is a canvas workspace for coding agents, Claude Code, OpenCode, Codex and Antigravity. Run several sessions side by side, watch every file they read, edit and run appear wired to the session that touched it, and open any change in one click. It all runs on your machine.</p>
       <div class="cta">
-        <div class="cmd" data-copy="curl -fsSL https://raw.githubusercontent.com/probablysamir/drawa/main/install.sh | sh">
-          <code><span class="pr" aria-hidden="true">$</span> curl -fsSL https://raw.githubusercontent.com/probablysamir/drawa/main/install.sh | sh</code>
+        <div class="cmd" data-copy="curl -fsSL https://raw.githubusercontent.com/HimalayanNomads/drawa/main/install.sh | sh">
+          <code><span class="pr" aria-hidden="true">$</span> curl -fsSL https://raw.githubusercontent.com/HimalayanNomads/drawa/main/install.sh | sh</code>
           <button class="copy" type="button" aria-label="Copy install command">Copy</button>
         </div>
-        <a class="btn ghost" href="https://github.com/probablysamir/drawa">View the source</a>
+        <a class="btn ghost" href="https://github.com/HimalayanNomads/drawa">View the source</a>
       </div>
       <p class="meta">Open source, AGPL-3.0 <i aria-hidden="true"></i> macOS and Linux <i aria-hidden="true"></i> Claude Code, OpenCode, Codex or Antigravity</p>
     </div>
@@ -197,6 +205,119 @@
     </div>
   </section>
 
+  <section id="tour" class="tour" aria-labelledby="tour-t">
+    <div class="wrap">
+      <h2 id="tour-t">See it in the app.</h2>
+      <p class="sub">Real screenshots, in light or dark to match this page. Click one for full view, as you would a picture on the canvas.</p>
+      <div class="tabbed" data-tabs>
+        <div class="tabs" role="tablist" aria-label="Screenshots">
+          <button class="tab" type="button" role="tab" id="tt-canvas" aria-controls="tp-canvas" aria-selected="true" data-kind="session" data-glyph="●">Canvas</button>
+          <button class="tab" type="button" role="tab" id="tt-map" aria-controls="tp-map" aria-selected="false" data-kind="file" data-glyph="▤">File map</button>
+          <button class="tab" type="button" role="tab" id="tt-review" aria-controls="tp-review" aria-selected="false" data-kind="session" data-glyph="◆">Review</button>
+          <button class="tab" type="button" role="tab" id="tt-diagram" aria-controls="tp-diagram" aria-selected="false" data-kind="plan" data-glyph="✦">Diagrams</button>
+          <button class="tab" type="button" role="tab" id="tt-github" aria-controls="tp-github" aria-selected="false" data-kind="git" data-glyph="⎇">GitHub</button>
+          <button class="tab" type="button" role="tab" id="tt-phone" aria-controls="tp-phone" aria-selected="false" data-kind="run" data-glyph="▸">Phone</button>
+          <button class="tab" type="button" role="tab" id="tt-agents" aria-controls="tp-agents" aria-selected="false" data-kind="agent" data-glyph="◇">Agents</button>
+        </div>
+        <figure class="panel shot" role="tabpanel" id="tp-canvas" aria-labelledby="tt-canvas">
+          <button class="shot-frame" type="button" aria-label="Full view: Canvas"><img class="lt" src="/src/shots/hero-light.png" width="1600" height="615" alt="The Drawa canvas: session cards, each wired to a window of the files its agent read, edited and wrote, with a diagram beside them" decoding="async"><img class="dk" src="/src/shots/hero-dark.png" width="1600" height="615" alt="The Drawa canvas: session cards, each wired to a window of the files its agent read, edited and wrote, with a diagram beside them" decoding="async"></button>
+          <figcaption><b>Several agents at once.</b> Each session is a card. The files its agent read, edited and wrote fill a window wired to it, with whatever else you put on the canvas beside them.</figcaption>
+        </figure>
+        <figure class="panel shot" role="tabpanel" id="tp-map" aria-labelledby="tt-map">
+          <button class="shot-frame" type="button" aria-label="Full view: File map"><img class="lt" src="/src/shots/files-light.png" width="984" height="744" alt="A session card wired to its files window: dom.ts edited (+2 −1), keys.ts read, and a commands window below" loading="lazy" decoding="async"><img class="dk" src="/src/shots/files-dark.png" width="984" height="744" alt="A session card wired to its files window: dom.ts edited (+2 −1), keys.ts read, and a commands window below" loading="lazy" decoding="async"></button>
+          <figcaption><b>Your work, drawn as a map.</b> Files are linked to the card that touched them and colored by what happened. Commands collect in their own window below.</figcaption>
+        </figure>
+        <figure class="panel shot" role="tabpanel" id="tp-review" aria-labelledby="tt-review">
+          <button class="shot-frame" type="button" aria-label="Full view: Review"><img src="/src/shots/review-dark.png" width="1000" height="748" alt="An edit to dom.ts waiting for approval, its diff shown inside the card above Deny, Always allow and Allow" loading="lazy" decoding="async"></button>
+          <figcaption><b>Review in place.</b> An edit waiting for approval shows its diff inside the card. Deny it, allow it once, or always.</figcaption>
+        </figure>
+        <figure class="panel shot" role="tabpanel" id="tp-diagram" aria-labelledby="tt-diagram">
+          <button class="shot-frame" type="button" aria-label="Full view: Diagrams"><img class="lt" src="/src/shots/diagram-light.png" width="1600" height="666" alt="A Mermaid diagram Claude drew on the canvas, in full view: how a window, its reference chip and its arrows relate" loading="lazy" decoding="async"><img class="dk" src="/src/shots/diagram-dark.png" width="1600" height="666" alt="A Mermaid diagram Claude drew on the canvas, in full view: how a window, its reference chip and its arrows relate" loading="lazy" decoding="async"></button>
+          <figcaption><b>Agents use the canvas too.</b> They read, create, edit and link canvas items through built-in tools, like this Mermaid diagram of the code it traced.</figcaption>
+        </figure>
+        <figure class="panel shot" role="tabpanel" id="tp-github" aria-labelledby="tt-github">
+          <button class="shot-frame" type="button" aria-label="Full view: GitHub"><img class="lt" src="/src/shots/github-light.png" width="1000" height="1269" alt="The GitHub window pinned to the sidebar beside a session card, showing a pull request with Send to Claude, Merge and its conversation" loading="lazy" decoding="async"><img class="dk" src="/src/shots/github-dark.png" width="1000" height="1269" alt="The GitHub window pinned to the sidebar beside a session card, showing a pull request with Send to Claude, Merge and its conversation" loading="lazy" decoding="async"></button>
+          <figcaption><b>Git and GitHub built in.</b> Pin the GitHub window beside a card. Send a pull request, its failing checks or its reviews straight to a session, or merge it.</figcaption>
+        </figure>
+        <figure class="panel shot" role="tabpanel" id="tp-phone" aria-labelledby="tt-phone">
+          <button class="shot-frame" type="button" aria-label="Full view: Phone"><img class="lt" src="/src/shots/phone-light.png" width="780" height="1688" alt="Drawa at phone width: a session card and its commands window" loading="lazy" decoding="async"><img class="dk" src="/src/shots/phone-dark.png" width="780" height="1688" alt="Drawa at phone width: a session card and its commands window" loading="lazy" decoding="async"></button>
+          <figcaption><b>Works on your phone.</b> Start with <code>--net</code> and open the printed link or QR code: the same canvas, starting in Hand mode so a drag pans.</figcaption>
+        </figure>
+        <figure class="panel shot" role="tabpanel" id="tp-agents" aria-labelledby="tt-agents">
+          <button class="shot-frame" type="button" aria-label="Full view: Agents"><img class="lt" src="/src/shots/agents-light.png" width="960" height="276" alt="The New session menu listing the installed agents: Claude Code and OpenCode" loading="lazy" decoding="async"><img class="dk" src="/src/shots/agents-dark.png" width="960" height="276" alt="The New session menu listing the installed agents: Claude Code and OpenCode" loading="lazy" decoding="async"></button>
+          <figcaption><b>Pick an agent per session.</b> New session ▾ lists every agent Drawa finds on your PATH, so Claude Code, OpenCode, Codex and Antigravity can work side by side.</figcaption>
+        </figure>
+      </div>
+    </div>
+    <dialog id="full" class="full" aria-label="Full view"><img alt=""><button class="icon" type="button" aria-label="Close full view"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8"/></svg></button></dialog>
+  </section>
+
+  <section id="agents" class="agents-sec" aria-labelledby="agents-t">
+    <div class="wrap">
+      <h2 id="agents-t">Bring the agent you already pay for.</h2>
+      <p class="sub">Each card picks its agent and its model when you start it, from <b>New session&nbsp;▾</b>. At launch Drawa lists the agents it finds, and warns if a version isn't the one it was tested with.</p>
+
+      <div class="win cmp-win" data-kind="session">
+        <div class="win-h"><h3 class="t" data-glyph="●">Compare agents</h3><span class="m">one is enough</span></div>
+        <div class="win-b">
+          <table class="tbl cmp">
+            <caption class="sr">What each agent supports in Drawa</caption>
+            <thead>
+              <tr><td></td>
+                <th scope="col"><a href="https://claude.com/claude-code">Claude Code</a><small>Claude Pro or Max</small></th>
+                <th scope="col"><a href="https://opencode.ai">OpenCode</a><small>Any provider, or free models</small></th>
+                <th scope="col"><a href="https://developers.openai.com/codex/cli">Codex</a><small>ChatGPT plan or API key</small></th>
+                <th scope="col"><a href="https://antigravity.google">Antigravity</a><small>Google sign-in</small></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><th scope="row">Sign in with</th><td data-a="Claude Code">Your Claude subscription</td><td data-a="OpenCode"><code>opencode auth login</code>; its own free models need no key</td><td data-a="Codex"><code>codex login</code></td><td data-a="Antigravity">Your Google sign-in, via <code>agy</code> in a terminal</td></tr>
+              <tr><th scope="row">Tested with</th><td data-a="Claude Code" class="no">Not pinned</td><td data-a="OpenCode"><code>1.18.32</code></td><td data-a="Codex"><code>0.158.0</code></td><td data-a="Antigravity"><code>1.2.16</code></td></tr>
+              <tr><th scope="row">Approvals, file and command windows, canvas tools, history</th><td data-a="Claude Code" class="yes">Yes</td><td data-a="OpenCode" class="yes">Yes</td><td data-a="Codex" class="yes">Yes <small>looking at the canvas never asks</small></td><td data-a="Antigravity" class="part">Files, commands and history <small>no approvals: edits are turned down unless in Allow everything; no canvas tools</small></td></tr>
+              <tr><th scope="row">Pasted images</th><td data-a="Claude Code" class="yes">Yes</td><td data-a="OpenCode" class="yes">Yes</td><td data-a="Codex" class="yes">Yes</td><td data-a="Antigravity" class="no">No</td></tr>
+              <tr><th scope="row">Sub-agents</th><td data-a="Claude Code" class="yes">Own window</td><td data-a="OpenCode" class="yes">Own window</td><td data-a="Codex" class="part">One row, not their own window</td><td data-a="Antigravity" class="no">No</td></tr>
+              <tr><th scope="row">Auto mode</th><td data-a="Claude Code" class="yes">Yes</td><td data-a="OpenCode" class="no">No</td><td data-a="Codex" class="no">No</td><td data-a="Antigravity" class="no">No</td></tr>
+              <tr><th scope="row">Effort setting</th><td data-a="Claude Code" class="yes">Yes</td><td data-a="OpenCode" class="no">No</td><td data-a="Codex" class="no">No <small>uses its default</small></td><td data-a="Antigravity" class="no">No <small>models name their own level</small></td></tr>
+              <tr><th scope="row">Usage windows in the status line</th><td data-a="Claude Code" class="yes">Yes</td><td data-a="OpenCode" class="no">No</td><td data-a="Codex" class="no">No</td><td data-a="Antigravity" class="no">No</td></tr>
+              <tr><th scope="row">Take back a queued message</th><td data-a="Claude Code" class="yes">Yes</td><td data-a="OpenCode" class="no">No</td><td data-a="Codex" class="no">No</td><td data-a="Antigravity" class="no">No</td></tr>
+              <tr><th scope="row">Memory per session</th><td data-a="Claude Code">Its own <code>claude</code> process</td><td data-a="OpenCode">About 300&nbsp;MB <small>its own <code>opencode</code> server</small></td><td data-a="Codex">About 250&nbsp;MB <small>its own <code>codex app-server</code></small></td><td data-a="Antigravity">Its own <code>agy</code> process</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <ul class="notes">
+        <li class="win" data-kind="note">
+          <div class="win-h"><h3 class="t" data-glyph="!">OpenCode privacy</h3></div>
+          <div class="win-b"><p>A session's prompts, and the files it reads, go to the provider you pick. OpenCode's free models are run by third parties that may use what you send to improve their models (see <a href="https://opencode.ai/docs/zen/">OpenCode Zen's terms</a>), so don't use them on code you can't share.</p></div>
+        </li>
+        <li class="win" data-kind="note">
+          <div class="win-h"><h3 class="t" data-glyph="◎">Codex trust</h3></div>
+          <div class="win-b"><p>A local folder is marked trusted for Codex, so its <code>.codex/</code> settings and <code>AGENTS.md</code> load, as with Claude Code. A cloned GitHub repo you didn't trust is marked untrusted, so they don't. Nothing is written to <code>~/.codex/config.toml</code>.</p></div>
+        </li>
+        <li class="win" data-kind="note">
+          <div class="win-h"><h3 class="t" data-glyph="!">Antigravity is limited</h3></div>
+          <div class="win-b"><p><code>agy</code> can't ask for approval when run headless, so edits and most commands are turned down and listed under the reply, unless you start the session in <b>Allow everything</b>. No Stop, no mode or model switch mid-session, no pasted images, no slash commands and no canvas tools. See <a href="https://github.com/HimalayanNomads/drawa/issues/34">#34</a>.</p></div>
+        </li>
+        <li class="win" data-kind="note">
+          <div class="win-h"><h3 class="t" data-glyph="≡">Limits and commits</h3></div>
+          <div class="win-b"><p>No agent has its own process limit: set <code>DRAWA_MAX_LIVE</code> if your machine needs one. In the Git window, <b>Write with&nbsp;▾</b> picks which agent writes commit messages and pull request descriptions.</p></div>
+        </li>
+      </ul>
+
+      <details class="modes">
+        <summary>How the permission modes map onto Codex</summary>
+        <dl>
+          <div><dt>Ask first</dt><dd>Asks before edits, and before any command Codex doesn't consider safe.</dd></div>
+          <div><dt>Plan only</dt><dd>Never asks, and nothing it runs can write. It doesn't hand you a plan to approve: it answers in the chat.</dd></div>
+          <div><dt>Allow edits</dt><dd>Approves file changes inside the project only: not in <code>.git</code>, <code>.codex</code>, <code>.agents</code> or <code>.claude</code>, and not renames out of it.</dd></div>
+          <div><dt>Always allow</dt><dd>Covers a command or edit until the card's Codex process closes (after 30 idle minutes, or to stay under <code>DRAWA_MAX_LIVE</code>; it asks again after resuming). Drawa doesn't save Codex's permanent command rules, and canvas changes ask each time.</dd></div>
+          <div><dt>Changing modes</dt><dd>Applies from the next turn (a message sent mid-turn joins the running one), except that leaving <b>Allow everything</b> stops a running turn, since it can't lose full access mid-turn.</dd></div>
+        </dl>
+      </details>
+    </div>
+  </section>
+
   <section id="local" class="local wrap" aria-labelledby="local-t">
     <div class="local-copy">
       <h2 id="local-t">Runs on your machine, with the agent you already set up.</h2>
@@ -218,24 +339,221 @@
     </div>
   </section>
 
-  <section class="keys wrap" aria-labelledby="keys-t">
+  <section id="keys" class="keys wrap" aria-labelledby="keys-t">
     <h2 id="keys-t">Keep your hands on the keyboard.</h2>
-    <p class="sub">Single keys for the common moves, following Excalidraw's where the tool exists. They never fire while you're typing.</p>
-    <dl class="key-list">
-      <div><dt><kbd>N</kbd></dt><dd>New session</dd></div>
-      <div><dt><kbd>C</kbd></dt><dd>Next session</dd></div>
-      <div><dt><kbd>Ctrl</kbd><kbd>K</kbd></dt><dd>Find a window</dd></div>
-      <div><dt><kbd>D</kbd></dt><dd>Draw on the canvas</dd></div>
-      <div><dt><kbd>S</kbd></dt><dd>Scratchpad</dd></div>
-      <div><dt><kbd>G</kbd></dt><dd>Git</dd></div>
-      <div><dt><kbd>Shift</kbd><kbd>1</kbd></dt><dd>Fit everything</dd></div>
-      <div><dt><kbd>Space</kbd><span class="plus">+ drag</span></dt><dd>Pan</dd></div>
-    </dl>
+    <p class="sub">Single keys for the common moves, following Excalidraw's where the tool exists. They never fire while you're typing. In the app, <kbd>?</kbd> lists them all and <kbd>Ctrl</kbd><kbd>K</kbd> runs any action by name.</p>
+    <div class="tabbed keys-win" data-tabs>
+      <div class="tabs" role="tablist" aria-label="Shortcuts by area">
+        <button class="tab" type="button" role="tab" id="kt-essentials" aria-controls="kp-essentials" aria-selected="true" data-kind="session" data-glyph="●">Essentials</button>
+        <button class="tab" type="button" role="tab" id="kt-canvas" aria-controls="kp-canvas" aria-selected="false" data-kind="file" data-glyph="▦">Canvas</button>
+        <button class="tab" type="button" role="tab" id="kt-items" aria-controls="kp-items" aria-selected="false" data-kind="plan" data-glyph="✦">Items</button>
+        <button class="tab" type="button" role="tab" id="kt-windows" aria-controls="kp-windows" aria-selected="false" data-kind="git" data-glyph="▢">Windows</button>
+        <button class="tab" type="button" role="tab" id="kt-draw" aria-controls="kp-draw" aria-selected="false" data-kind="sketch" data-glyph="✎">Draw</button>
+        <button class="tab" type="button" role="tab" id="kt-selection" aria-controls="kp-selection" aria-selected="false" data-kind="agent" data-glyph="◇">Selection</button>
+        <button class="tab" type="button" role="tab" id="kt-message" aria-controls="kp-message" aria-selected="false" data-kind="run" data-glyph="▸">Message box</button>
+        <button class="tab" type="button" role="tab" id="kt-mouse" aria-controls="kp-mouse" aria-selected="false" data-kind="doc" data-glyph="◌">Mouse</button>
+      </div>
+      <div class="panel" role="tabpanel" id="kp-essentials" aria-labelledby="kt-essentials">
+        <dl class="key-list">
+          <div><dt><kbd>N</kbd></dt><dd>New session</dd></div>
+          <div><dt><kbd>C</kbd></dt><dd>Next session</dd></div>
+          <div><dt><kbd>Ctrl</kbd><kbd>K</kbd></dt><dd>Find a window, file, symbol or command</dd></div>
+          <div><dt><kbd>D</kbd></dt><dd>Draw on the canvas</dd></div>
+          <div><dt><kbd>S</kbd></dt><dd>Scratchpad</dd></div>
+          <div><dt><kbd>G</kbd></dt><dd>Git</dd></div>
+          <div><dt><kbd>Shift</kbd><kbd>1</kbd></dt><dd>Fit everything</dd></div>
+          <div><dt><kbd>Space</kbd><span class="plus">+ drag</span></dt><dd>Pan</dd></div>
+        </dl>
+      </div>
+      <div class="panel" role="tabpanel" id="kp-canvas" aria-labelledby="kt-canvas">
+        <dl class="key-list">
+          <div><dt><kbd>V</kbd><span class="or">or</span><kbd>1</kbd></dt><dd>Select</dd></div>
+          <div><dt><kbd>H</kbd></dt><dd>Hand (pan with a drag)</dd></div>
+          <div><dt><kbd>Space</kbd><span class="plus">hold</span></dt><dd>Pan for a moment</dd></div>
+          <div><dt><kbd>Shift</kbd><kbd>1</kbd></dt><dd>Fit all</dd></div>
+          <div><dt><kbd>Shift</kbd><kbd>2</kbd></dt><dd>Zoom to selection</dd></div>
+          <div><dt><kbd>Shift</kbd><kbd>0</kbd></dt><dd>Zoom to 100%</dd></div>
+          <div><dt><kbd>F</kbd></dt><dd>Fit</dd></div>
+          <div><dt><kbd>+</kbd><span class="or">or</span><kbd>-</kbd></dt><dd>Zoom in / out</dd></div>
+          <div><dt><kbd>←</kbd><kbd>→</kbd><kbd>↑</kbd><kbd>↓</kbd></dt><dd>Pan (Shift: bigger steps)</dd></div>
+        </dl>
+      </div>
+      <div class="panel" role="tabpanel" id="kp-items" aria-labelledby="kt-items">
+        <dl class="key-list">
+          <div><dt><kbd>N</kbd></dt><dd>New session</dd></div>
+          <div><dt><kbd>C</kbd><span class="or">or</span><kbd>Shift</kbd><kbd>C</kbd></dt><dd>Next / previous session (Enter to type)</dd></div>
+          <div><dt><kbd>T</kbd></dt><dd>Sticky note</dd></div>
+          <div><dt><kbd>S</kbd></dt><dd>Scratchpad</dd></div>
+          <div><dt><kbd>9</kbd></dt><dd>Insert a picture</dd></div>
+          <div><dt><kbd>G</kbd></dt><dd>Git</dd></div>
+          <div><dt><kbd>Shift</kbd><kbd>G</kbd></dt><dd>GitHub</dd></div>
+          <div><dt><kbd>Shift</kbd><kbd>H</kbd></dt><dd>History &amp; files</dd></div>
+          <div><dt><kbd>Ctrl</kbd><kbd>K</kbd></dt><dd>Find a window, file, code symbol or command</dd></div>
+          <div><dt><kbd>?</kbd></dt><dd>All shortcuts</dd></div>
+        </dl>
+        <p class="note"><kbd>Enter</kbd> after <kbd>C</kbd> puts you in that session's message box.</p>
+      </div>
+      <div class="panel" role="tabpanel" id="kp-windows" aria-labelledby="kt-windows">
+        <dl class="key-list">
+          <div><dt><kbd>W</kbd><span class="or">or</span><kbd>Shift</kbd><kbd>W</kbd></dt><dd>Next / previous window</dd></div>
+          <div><dt><kbd>M</kbd></dt><dd>Collapse or expand</dd></div>
+          <div><dt><kbd>Shift</kbd><kbd>F</kbd></dt><dd>Full view</dd></div>
+          <div><dt><kbd>F2</kbd></dt><dd>Rename</dd></div>
+          <div><dt><kbd>Shift</kbd><kbd>P</kbd></dt><dd>Pin to the sidebar</dd></div>
+          <div><dt><kbd>Shift</kbd><kbd>S</kbd></dt><dd>Stick to the screen</dd></div>
+        </dl>
+        <p class="note">They act on the selected window, else the one in front. <kbd>W</kbd> selects, so <kbd>Delete</kbd>, the arrows and <kbd>Ctrl</kbd><kbd>G</kbd> act on it.</p>
+      </div>
+      <div class="panel" role="tabpanel" id="kp-draw" aria-labelledby="kt-draw">
+        <dl class="key-list">
+          <div><dt><kbd>D</kbd></dt><dd>Toggle Draw mode</dd></div>
+          <div><dt><kbd>P</kbd><span class="or">or</span><kbd>7</kbd></dt><dd>Pen</dd></div>
+          <div><dt><kbd>A</kbd><span class="or">or</span><kbd>5</kbd></dt><dd>Arrow between items</dd></div>
+          <div><dt><kbd>E</kbd><span class="or">or</span><kbd>0</kbd></dt><dd>Eraser</dd></div>
+          <div><dt><kbd>T</kbd><span class="or">or</span><kbd>8</kbd></dt><dd>Text</dd></div>
+          <div><dt><kbd>R</kbd><span class="or">or</span><kbd>2</kbd></dt><dd>Rectangle</dd></div>
+          <div><dt><kbd>3</kbd></dt><dd>Diamond</dd></div>
+          <div><dt><kbd>O</kbd><span class="or">or</span><kbd>4</kbd></dt><dd>Ellipse</dd></div>
+          <div><dt><kbd>L</kbd><span class="or">or</span><kbd>6</kbd></dt><dd>Line</dd></div>
+          <div><dt><kbd>Ctrl</kbd><kbd>Z</kbd></dt><dd>Undo</dd></div>
+          <div><dt><kbd>Esc</kbd></dt><dd>Stop</dd></div>
+        </dl>
+        <p class="note">Hold <kbd>Shift</kbd> for a square, a circle or a 45° line.</p>
+      </div>
+      <div class="panel" role="tabpanel" id="kp-selection" aria-labelledby="kt-selection">
+        <dl class="key-list">
+          <div><dt><kbd>Ctrl/⌘</kbd><kbd>A</kbd></dt><dd>Select all</dd></div>
+          <div><dt><kbd>←</kbd><kbd>→</kbd><kbd>↑</kbd><kbd>↓</kbd></dt><dd>Nudge (Shift: 10px)</dd></div>
+          <div><dt><kbd>Delete</kbd></dt><dd>Remove</dd></div>
+          <div><dt><kbd>Esc</kbd></dt><dd>Clear</dd></div>
+          <div><dt><kbd>Ctrl/⌘</kbd><kbd>G</kbd></dt><dd>Group the selected windows</dd></div>
+          <div><dt><kbd>Ctrl/⌘</kbd><kbd>Shift</kbd><kbd>G</kbd></dt><dd>Ungroup the selected groups</dd></div>
+        </dl>
+        <p class="note">Grouping windows that hold groups merges them. With nothing selected, <kbd>Ctrl</kbd><kbd>G</kbd> makes an empty group.</p>
+      </div>
+      <div class="panel" role="tabpanel" id="kp-message" aria-labelledby="kt-message">
+        <dl class="key-list">
+          <div><dt><kbd>Enter</kbd></dt><dd>Send</dd></div>
+          <div><dt><kbd>Shift</kbd><kbd>Enter</kbd></dt><dd>New line</dd></div>
+          <div><dt><kbd>Esc</kbd></dt><dd>Leave the box</dd></div>
+          <div><dt><kbd>↑</kbd></dt><dd>Previous message, at the start</dd></div>
+          <div><dt><kbd>↓</kbd></dt><dd>Next message, at the end</dd></div>
+          <div><dt><kbd>/</kbd></dt><dd>Skills and slash commands</dd></div>
+          <div><dt><kbd>@</kbd></dt><dd>Reference a file or canvas item</dd></div>
+        </dl>
+        <p class="note">The arrows walk through the messages and <kbd>!</kbd> commands you sent in this session; past the newest is your draft. Prefer <kbd>Ctrl</kbd><kbd>Enter</kbd> to send? Pick it in Settings.</p>
+      </div>
+      <div class="panel" role="tabpanel" id="kp-mouse" aria-labelledby="kt-mouse">
+        <ul class="facts mouse">
+          <li><b>Drag the background</b> to select in Select mode, or to pan in Hand mode. Phones start in Hand mode.</li>
+          <li><b>The middle button and the wheel</b> always pan. <kbd>Shift</kbd> + scroll goes sideways.</li>
+          <li><b><kbd>Ctrl</kbd> + scroll or a pinch</b> zooms, and the zoom is saved with the canvas.</li>
+          <li><b>Jumping to a window</b> with <kbd>Ctrl</kbd><kbd>K</kbd>, <kbd>C</kbd> or a notification keeps the zoom, unless the window would be under 50% or wouldn't fit: then it zooms to fit, at most 100%.</li>
+          <li><b>Click a picture or diagram</b> for full view, and click again to zoom and pan it.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="docs" class="docs" aria-labelledby="docs-t">
+    <div class="wrap">
+      <h2 id="docs-t">The details, when you need them.</h2>
+      <p class="sub">The command line, what Drawa needs, and how to configure it. The full story is in the <a href="https://github.com/HimalayanNomads/drawa#readme">README</a> and <a href="https://github.com/HimalayanNomads/drawa/blob/main/INSTALL.md">INSTALL.md</a>.</p>
+      <div class="tabbed docs-win" data-tabs>
+        <div class="tabs" role="tablist" aria-label="Reference">
+          <button class="tab" type="button" role="tab" id="dt-cli" aria-controls="dp-cli" aria-selected="true" data-kind="run" data-glyph="▸">Command line</button>
+          <button class="tab" type="button" role="tab" id="dt-req" aria-controls="dp-req" aria-selected="false" data-kind="file" data-glyph="▤">Requirements</button>
+          <button class="tab" type="button" role="tab" id="dt-env" aria-controls="dp-env" aria-selected="false" data-kind="git" data-glyph="$">Environment</button>
+          <button class="tab" type="button" role="tab" id="dt-cfg" aria-controls="dp-cfg" aria-selected="false" data-kind="plan" data-glyph="⚙">Settings file</button>
+          <button class="tab" type="button" role="tab" id="dt-sec" aria-controls="dp-sec" aria-selected="false" data-kind="session" data-glyph="◎">Security</button>
+        </div>
+
+        <div class="panel" role="tabpanel" id="dp-cli" aria-labelledby="dt-cli">
+          <dl class="cli">
+            <div><dt><code>drawa</code></dt><dd>Opens the current folder at <code>http://127.0.0.1:8765</code> in your browser. Press <kbd>N</kbd> for a new session and start typing.</dd></div>
+            <div><dt><code>drawa ~/some/project</code></dt><dd>Any other folder.</dd></div>
+            <div><dt><code>drawa --net .</code></dt><dd>Also listens on your network address, like a Vite or Next.js dev server, and prints a link with a one-time <code>?token=</code> plus a QR code for your phone. <code>--net</code> works in any position.</dd></div>
+            <div><dt><code>drawa https://github.com/owner/repo</code></dt><dd>Clones the repo into a cache folder and opens it; reruns reuse the clone. A folder link like <code>/tree/main/docs</code> opens the repo on its default branch.</dd></div>
+            <div><dt><code>drawa --clean</code></dt><dd>Removes cached clones, or pass one repo's URL. Keeps any clone with uncommitted, unpushed, stashed or ignored files. Don't run it while a Drawa is open on that clone.</dd></div>
+            <div><dt><code>drawa --update</code></dt><dd>Updates to the latest release.</dd></div>
+          </dl>
+          <div class="split">
+            <p><b>Trusting a repo.</b> Opening a GitHub URL, or a folder inside its clone, asks on each launch whether to trust it. Answer <code>n</code> (the default) and its <code>.claude/</code> settings, hooks, <code>.mcp.json</code>, <code>CLAUDE.md</code>, OpenCode project config, and Codex's <code>.codex/</code> and <code>AGENTS.md</code> are ignored, since they could run commands on your machine.</p>
+            <p><b>In the message box,</b> <kbd>/</kbd> opens skills and slash commands and <kbd>@</kbd> references files or canvas items. The toolbar picks the model and the permission mode.</p>
+          </div>
+        </div>
+
+        <div class="panel" role="tabpanel" id="dp-req" aria-labelledby="dt-req">
+          <table class="tbl">
+            <caption class="sr">Requirements</caption>
+            <tbody>
+              <tr><th scope="row"><a href="https://claude.com/claude-code">Claude Code</a></th><td><span class="pill req-pill">One agent required</span> <code>claude</code> on <code>PATH</code> and logged in, for your Claude subscription.</td></tr>
+              <tr><th scope="row"><a href="https://opencode.ai">OpenCode</a></th><td>Or, instead or as well: <code>opencode</code> on <code>PATH</code>, for any other provider or its free models. Tested with 1.18.32.</td></tr>
+              <tr><th scope="row"><a href="https://developers.openai.com/codex/cli">Codex</a></th><td>Or: <code>codex</code> on <code>PATH</code> and logged in, for your ChatGPT plan or an OpenAI API key. Tested with 0.158.0.</td></tr>
+              <tr><th scope="row"><a href="https://antigravity.google">Antigravity</a></th><td>Or: <code>agy</code> on <code>PATH</code>, signed in once by running <code>agy</code> in a terminal. Limited: no approvals or canvas tools. Tested with 1.2.16.</td></tr>
+              <tr><th scope="row"><code>git</code></th><td><span class="pill">Optional</span> Powers the Git window and file history.</td></tr>
+              <tr><th scope="row"><a href="https://cli.github.com"><code>gh</code></a></th><td><span class="pill">Optional</span> Powers the GitHub window.</td></tr>
+              <tr><th scope="row"><a href="https://github.com/universal-ctags/ctags">universal-ctags</a></th><td><span class="pill">Optional</span> Code symbols: <kbd>Ctrl</kbd><kbd>K</kbd> finds functions, classes and the like by name, and clicking a name in a diff shows where it's defined. <code>brew install universal-ctags</code> on a Mac; turn it off in Settings.</td></tr>
+              <tr><th scope="row">OS</th><td>macOS or Linux. Windows isn't supported natively yet, but Drawa runs inside <a href="https://learn.microsoft.com/windows/wsl/install">WSL2</a>.</td></tr>
+              <tr><th scope="row">From source</th><td>Go 1.22+ and Node 20.19+ (or 22.12+). See <a href="https://github.com/HimalayanNomads/drawa#install">Build from source</a>.</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="panel" role="tabpanel" id="dp-env" aria-labelledby="dt-env">
+          <table class="tbl env">
+            <caption class="sr">Environment variables</caption>
+            <thead><tr><th scope="col">Variable</th><th scope="col">Default</th><th scope="col">Purpose</th></tr></thead>
+            <tbody>
+              <tr><th scope="row"><code>DRAWA_PORT</code></th><td><code>8765</code></td><td>Port to serve on. Set it to run two projects at once.</td></tr>
+              <tr><th scope="row"><code>CLAUDE_CONFIG_DIR</code></th><td><code>~/.claude</code></td><td>Claude Code's config directory, if you keep a separate login or set of skills for Drawa.</td></tr>
+              <tr><th scope="row"><code>DRAWA_NET_TOKEN</code></th><td>fresh each run</td><td>The <code>--net</code> token. Drawa sets it itself so the token survives its self-restarts; set it only to pick your own.</td></tr>
+              <tr><th scope="row"><code>DRAWA_MAX_LIVE</code></th><td>no cap</td><td>Most agent processes kept running at once (each takes a few hundred MB). Past it, the least recently used idle session closes; its next message resumes it. Idle sessions close after 30 minutes either way.</td></tr>
+              <tr><th scope="row"><code>DRAWA_DEV</code></th><td>unset</td><td><code>1</code> trusts the Vite dev server's origin (port 5173). <code>npm run dev</code> sets it; see <a href="https://github.com/HimalayanNomads/drawa/blob/main/CONTRIBUTING.md">CONTRIBUTING.md</a>.</td></tr>
+            </tbody>
+          </table>
+          <pre class="code"><span class="c">$</span> DRAWA_PORT=8766 CLAUDE_CONFIG_DIR=$HOME/.claude-work drawa ~/other/project</pre>
+        </div>
+
+        <div class="panel" role="tabpanel" id="dp-cfg" aria-labelledby="dt-cfg">
+          <div class="cfg">
+            <div>
+              <p class="lead">Settings that follow you to every project and browser live in <code>~/.drawa/config.json</code>. Drawa writes the defaults the first time it starts, and the Settings panel (the gear) changes it. Hand edits apply on the next reload; a file that isn't valid JSON is left alone and the defaults apply until it's fixed.</p>
+              <pre class="code"><span class="c">// ~/.drawa/config.json</span>
+{
+  <span class="f">"darkScheme"</span>: <span class="s">"claude-dark"</span>,
+  <span class="f">"lightScheme"</span>: <span class="s">"claude-light"</span>,
+  <span class="f">"theme"</span>: <span class="s">"system"</span>,
+  <span class="f">"ui"</span>: <span class="s">"full"</span>
+}</pre>
+            </div>
+            <dl class="opts">
+              <div><dt><code>ui</code><em>full</em></dt><dd><code>full</code> shows every window's title tab; <code>minimal</code> shows a tab only when you hover or focus its window. A card waiting for your approval keeps its tab either way.</dd></div>
+              <div><dt><code>theme</code><em>system</em></dt><dd><code>system</code> follows your computer's light or dark mode; <code>light</code> or <code>dark</code> fixes it.</dd></div>
+              <div><dt><code>lightScheme</code>, <code>darkScheme</code><em>claude-light, claude-dark</em></dt><dd>The color scheme for each mode, such as <code>rose-pine-dawn</code>, <code>catppuccin-mocha</code> or <code>nord</code>. <a href="#features">Try them on this page.</a></dd></div>
+              <div><dt>Per browser</dt><dd>Fonts, and which key sends a message.</dd></div>
+            </dl>
+          </div>
+        </div>
+
+        <div class="panel" role="tabpanel" id="dp-sec" aria-labelledby="dt-sec">
+          <p class="lead">Drawa is built to run locally, for one user.</p>
+          <ul class="facts sec">
+            <li><b>Localhost only.</b> The server listens on <code>127.0.0.1</code> unless you pass <code>--net</code>, and checks the <code>Host</code> header on every request either way.</li>
+            <li><b>A token for the network.</b> With <code>--net</code>, the network address also needs its one-time <code>?token=</code>, checked once, then kept in a cookie and dropped from the address. Five wrong guesses lock that address out for a few minutes. Treat the link like a password, and only use <code>--net</code> on a network you trust.</li>
+            <li><b>Same-origin changes.</b> Any request that changes something must come from Drawa's own page, with a matching <code>Origin</code>.</li>
+            <li><b>Confined files.</b> File access stays inside the project folder you opened.</li>
+            <li><b>Per-process tool tokens.</b> Claude's canvas tools use a token per process, so only that session's own <code>claude</code> can call them.</li>
+          </ul>
+          <p class="note">Found a vulnerability? Please open a <a href="https://github.com/HimalayanNomads/drawa/security/advisories/new">private security advisory</a> rather than a public issue. See <a href="https://github.com/HimalayanNomads/drawa/blob/main/SECURITY.md">SECURITY.md</a>.</p>
+        </div>
+      </div>
+    </div>
   </section>
 
   <section id="people" class="people wrap" aria-labelledby="people-t">
     <h2 id="people-t">Built in the open.</h2>
-    <p class="sub">Everyone who has committed to Drawa, opened an issue or pull request, or joined the discussion, most active first. <a href="https://github.com/probablysamir/drawa/blob/main/CONTRIBUTING.md">Add your face here</a>.</p>
+    <p class="sub">Everyone who has committed to Drawa, opened an issue or pull request, or joined the discussion, most active first. <a href="https://github.com/HimalayanNomads/drawa/blob/main/CONTRIBUTING.md">Add your face here</a>.</p>
     <!-- a slice of the canvas: the repo wired to everyone who committed to it. people.ts fills it and plays the edges in -->
     <div id="people-board" class="people-board">
       <svg class="edges" aria-hidden="true"></svg>
@@ -245,7 +563,7 @@
 <span id="people-sum" class="c">counting…</span></pre></div>
       </div>
       <ul id="contributors" class="contributors" aria-label="Contributors">
-        <li class="none"><a href="https://github.com/probablysamir/drawa/graphs/contributors">See contributors on GitHub</a></li>
+        <li class="none"><a href="https://github.com/HimalayanNomads/drawa/graphs/contributors">See contributors on GitHub</a></li>
       </ul>
     </div>
   </section>
@@ -254,15 +572,36 @@
     <div class="wrap install-in">
       <h2 id="install-t">Install it in one line.</h2>
       <p class="sub">Downloads the release binary for your OS to <code>~/.local/bin/drawa</code>. No Go or Node needed. Update later with <code>drawa --update</code>.</p>
-      <div class="cmd big" data-copy="curl -fsSL https://raw.githubusercontent.com/probablysamir/drawa/main/install.sh | sh">
-        <code><span class="pr" aria-hidden="true">$</span> curl -fsSL https://raw.githubusercontent.com/probablysamir/drawa/main/install.sh | sh</code>
+      <div class="cmd big" data-copy="curl -fsSL https://raw.githubusercontent.com/HimalayanNomads/drawa/main/install.sh | sh">
+        <code><span class="pr" aria-hidden="true">$</span> curl -fsSL https://raw.githubusercontent.com/HimalayanNomads/drawa/main/install.sh | sh</code>
         <button class="copy" type="button" aria-label="Copy install command">Copy</button>
       </div>
       <ol class="steps">
         <li><span>Open a project</span><code>cd ~/my/project &amp;&amp; drawa</code></li>
         <li><span>Start a session</span><code>press N and type</code></li>
       </ol>
-      <p class="req">Needs <a href="https://claude.com/claude-code">Claude Code</a>, <a href="https://opencode.ai">OpenCode</a>, <a href="https://developers.openai.com/codex/cli">Codex</a> or <a href="https://antigravity.google">Antigravity</a> on your PATH. <code>git</code> and <code>gh</code> are optional. macOS or Linux; Windows isn't supported yet. <a href="https://github.com/probablysamir/drawa/blob/main/INSTALL.md">Manual downloads and building from source</a>.</p>
+      <ul class="agents" aria-label="Which agent to install">
+        <li><span>Claude Pro or Max plan</span><b><a href="https://claude.com/claude-code">Claude Code</a></b><code>curl -fsSL https://claude.ai/install.sh | bash</code></li>
+        <li><span>ChatGPT plan or OpenAI API key</span><b><a href="https://developers.openai.com/codex/cli">Codex</a></b><code>npm install -g @openai/codex</code></li>
+        <li><span>No paid plan, or another provider</span><b><a href="https://opencode.ai">OpenCode</a></b><code>curl -fsSL https://opencode.ai/install | bash</code></li>
+        <li><span>Google account</span><b><a href="https://antigravity.google">Antigravity</a></b><code>agy</code></li>
+      </ul>
+      <ul class="facts req">
+        <li><b>One agent, logged in.</b> Any of the four on your PATH is enough. <code>git</code> and <code>gh</code> are optional.</li>
+        <li><b>On Windows?</b> It isn't supported natively yet, but it runs inside <a href="https://learn.microsoft.com/windows/wsl/install">WSL2</a>. Install your agent there too.</li>
+        <li><b><code>drawa: command not found</code>?</b> Add <code>~/.local/bin</code> to your PATH, or see <a href="https://github.com/HimalayanNomads/drawa/blob/main/INSTALL.md">manual downloads and building from source</a>.</li>
+      </ul>
+      <div class="win star" data-kind="note">
+        <div class="win-h"><h3 class="t" data-glyph="★">Like Drawa?</h3></div>
+        <div class="win-b">
+          <p>A star on GitHub helps more people find it. Hit a bug or have an idea? Tell us, it shapes what gets built next.</p>
+          <div class="star-acts">
+            <a class="btn primary" href="https://github.com/HimalayanNomads/drawa"><svg viewBox="0 0 16 16" aria-hidden="true" class="fill"><path d="M8 .7l2.2 4.6 5 .7-3.6 3.5.9 5L8 12.1l-4.5 2.4.9-5L.8 6l5-.7z"/></svg>Star on GitHub<span class="stars" hidden></span></a>
+            <a class="btn ghost" href="https://github.com/HimalayanNomads/drawa/issues/new">Report a bug</a>
+            <a class="btn ghost" href="https://github.com/HimalayanNomads/drawa/discussions">Share an idea</a>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 </main>
@@ -271,12 +610,16 @@
   <div class="wrap foot-in">
     <a class="brand" href="#top" aria-label="Drawa, back to top"><span class="logo" aria-hidden="true"></span><b>Drawa</b></a>
     <nav aria-label="Project">
-      <a href="https://github.com/probablysamir/drawa">Source</a>
-      <a href="https://github.com/probablysamir/drawa/releases/latest">Releases</a>
-      <a href="https://github.com/probablysamir/drawa/blob/main/CONTRIBUTING.md">Contributing</a>
-      <a href="https://github.com/probablysamir/drawa/blob/main/SECURITY.md">Security</a>
+      <a href="https://github.com/HimalayanNomads/drawa">Source</a>
+      <a href="https://github.com/HimalayanNomads/drawa/releases/latest">Releases</a>
+      <a href="https://github.com/HimalayanNomads/drawa/issues">Issues</a>
+      <a href="https://github.com/HimalayanNomads/drawa/discussions">Discussions</a>
+      <a href="https://github.com/HimalayanNomads/drawa/blob/main/INSTALL.md">Install guide</a>
+      <a href="https://github.com/HimalayanNomads/drawa/blob/main/CONTRIBUTING.md">Contributing</a>
+      <a href="https://github.com/HimalayanNomads/drawa/blob/main/CODE_OF_CONDUCT.md">Code of conduct</a>
+      <a href="https://github.com/HimalayanNomads/drawa/blob/main/SECURITY.md">Security</a>
     </nav>
-    <p>Licensed under the <a href="https://github.com/probablysamir/drawa/blob/main/LICENSE">GNU AGPL-3.0</a>. Not affiliated with Anthropic.</p>
+    <p>Licensed under the <a href="https://github.com/HimalayanNomads/drawa/blob/main/LICENSE">GNU AGPL-3.0</a>. Not affiliated with Anthropic or OpenAI.</p>
   </div>
 </footer>
 

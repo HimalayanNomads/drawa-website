@@ -2,10 +2,11 @@
 // issue or pull request, or commented on one, with a count for each. Runs before dev and build (the deploy runs it
 // hourly too), so visitors read one static file instead of spending their 60/h GitHub API budget.
 // Uses GITHUB_TOKEN when set (CI); unauthenticated works locally. On failure it warns and writes nothing, and the
-// page keeps its link to GitHub's contributors graph.
+// page keeps its link to GitHub's contributors graph. A snapshot of both files is committed, so a build that can't reach the API
+// (Cloudflare without a token gets rate-limited) still ships the last good data.
 import { writeFile, mkdir } from 'node:fs/promises'
 
-const REPO = 'probablysamir/drawa'
+const REPO = 'HimalayanNomads/drawa'
 const OUT = new URL('../public/contributors.json', import.meta.url)
 const headers = { accept: 'application/vnd.github+json', ...(process.env.GITHUB_TOKEN && { authorization: `Bearer ${process.env.GITHUB_TOKEN}` }) }
 
@@ -44,4 +45,16 @@ try {
   console.log(`contributors.json: ${list.length} people`)
 } catch (e) {
   console.warn(`contributors.json not written: ${e.message}${e.cause ? ` (${e.cause.code ?? e.cause.message})` : ""}`)
+}
+
+// star count for the header button, same static-file trick; the button just says "Star" without it
+try {
+  const r = await fetch(`https://api.github.com/repos/${REPO}`, { headers })
+  if (!r.ok) throw new Error(`${r.status}`)
+  const { stargazers_count: stars } = await r.json()
+  await mkdir(new URL('.', OUT), { recursive: true })
+  await writeFile(new URL('repo.json', OUT), JSON.stringify({ stars }) + '\n')
+  console.log(`repo.json: ${stars} stars`)
+} catch (e) {
+  console.warn(`repo.json not written: ${e.message}`)
 }
