@@ -2,15 +2,15 @@
 <html lang="en">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Drawa: a canvas workspace for Claude Code, Codex and OpenCode</title>
-<meta name="description" content="Run Claude Code, Codex and OpenCode side by side on one canvas. See every file your agents read, edit and run, and review each change. Free, open source, local.">
+<title>Drawa: a canvas workspace for Claude Code, Codex, OpenCode and Antigravity</title>
+<meta name="description" content="Run Claude Code, Codex, OpenCode and Antigravity side by side on one canvas. See every file your agents read, edit and run, and review each change. Free, open source, local.">
 <meta property="og:title" content="Drawa: your coding agent's work, drawn as a map">
-<meta property="og:description" content="A canvas workspace for Claude Code, OpenCode and Codex. Parallel sessions, live file maps, diffs everywhere. Runs on your machine.">
+<meta property="og:description" content="A canvas workspace for Claude Code, OpenCode, Codex and Antigravity. Parallel sessions, live file maps, diffs everywhere. Runs on your machine.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Drawa">
 <meta property="og:locale" content="en_US">
 <meta property="og:url" content="https://drawa.cc/">
-<meta property="og:image" content="https://drawa.cc/og.png?v=3">
+<meta property="og:image" content="https://drawa.cc/og.png?v=4">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Drawa: an agent session card wired by colored edges to the files it read, edited and wrote, and the tests it ran.">
@@ -20,7 +20,7 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="canonical" href="https://drawa.cc/">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Drawa","url":"https://drawa.cc/","description":"A canvas workspace for coding agents: run Claude Code, OpenCode and Codex sessions side by side, see every file they touch, and review each change.","applicationCategory":"DeveloperApplication","operatingSystem":"macOS, Linux","license":"https://www.gnu.org/licenses/agpl-3.0.html","codeRepository":"https://github.com/HimalayanNomads/drawa","image":"https://drawa.cc/og.png","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Drawa","url":"https://drawa.cc/","description":"A canvas workspace for coding agents: run Claude Code, OpenCode, Codex and Antigravity sessions side by side, see every file they touch, and review each change.","applicationCategory":"DeveloperApplication","operatingSystem":"macOS, Linux","license":"https://www.gnu.org/licenses/agpl-3.0.html","codeRepository":"https://github.com/HimalayanNomads/drawa","image":"https://drawa.cc/og.png","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
 <script>/* theme before first paint (src/theme.ts owns it after boot; same key and defaults) */
   (function(){var c={};try{c=JSON.parse(localStorage.getItem('drawa-site:theme')||'{}')||{}}catch(e){}
   var m=c.mode||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'),r=document.documentElement
@@ -53,7 +53,7 @@
   <section class="hero" aria-labelledby="hero-t">
     <div class="wrap hero-copy">
       <h1 id="hero-t">Your coding agent's work, drawn as a&nbsp;map.</h1>
-      <p class="lede">Drawa is a canvas workspace for coding agents, starting with Claude Code, OpenCode and Codex. Run several sessions side by side, watch every file they read, edit and run appear wired to the session that touched it, and open any change in one click. It all runs on your machine.</p>
+      <p class="lede">Drawa is a canvas workspace for coding agents, Claude Code, OpenCode, Codex and Antigravity. Run several sessions side by side, watch every file they read, edit and run appear wired to the session that touched it, and open any change in one click. It all runs on your machine.</p>
       <div class="cta">
         <div class="cmd" data-copy="curl -fsSL https://raw.githubusercontent.com/HimalayanNomads/drawa/main/install.sh | sh">
           <code><span class="pr" aria-hidden="true">$</span> curl -fsSL https://raw.githubusercontent.com/HimalayanNomads/drawa/main/install.sh | sh</code>
@@ -61,7 +61,7 @@
         </div>
         <a class="btn ghost" href="https://github.com/HimalayanNomads/drawa">View the source</a>
       </div>
-      <p class="meta">Open source, AGPL-3.0 <i aria-hidden="true"></i> macOS and Linux <i aria-hidden="true"></i> Claude Code, OpenCode or Codex</p>
+      <p class="meta">Open source, AGPL-3.0 <i aria-hidden="true"></i> macOS and Linux <i aria-hidden="true"></i> Claude Code, OpenCode, Codex or Antigravity</p>
     </div>
 
     <!-- a working slice of the app: one session, the files it touches, colored edges. hero.ts plays it; without script it shows the finished state -->
@@ -245,7 +245,7 @@
         </figure>
         <figure class="panel shot" role="tabpanel" id="tp-agents" aria-labelledby="tt-agents">
           <button class="shot-frame" type="button" aria-label="Full view: Agents"><img class="lt" src="/src/shots/agents-light.png" width="960" height="276" alt="The New session menu listing the installed agents: Claude Code and OpenCode" loading="lazy" decoding="async"><img class="dk" src="/src/shots/agents-dark.png" width="960" height="276" alt="The New session menu listing the installed agents: Claude Code and OpenCode" loading="lazy" decoding="async"></button>
-          <figcaption><b>Pick an agent per session.</b> New session ▾ lists every agent Drawa finds on your PATH, so Claude Code, OpenCode and Codex can work side by side.</figcaption>
+          <figcaption><b>Pick an agent per session.</b> New session ▾ lists every agent Drawa finds on your PATH, so Claude Code, OpenCode, Codex and Antigravity can work side by side.</figcaption>
         </figure>
       </div>
     </div>
@@ -267,19 +267,20 @@
                 <th scope="col"><a href="https://claude.com/claude-code">Claude Code</a><small>Claude Pro or Max</small></th>
                 <th scope="col"><a href="https://opencode.ai">OpenCode</a><small>Any provider, or free models</small></th>
                 <th scope="col"><a href="https://developers.openai.com/codex/cli">Codex</a><small>ChatGPT plan or API key</small></th>
+                <th scope="col"><a href="https://antigravity.google">Antigravity</a><small>Google sign-in</small></th>
               </tr>
             </thead>
             <tbody>
-              <tr><th scope="row">Sign in with</th><td data-a="Claude Code">Your Claude subscription</td><td data-a="OpenCode"><code>opencode auth login</code>; its own free models need no key</td><td data-a="Codex"><code>codex login</code></td></tr>
-              <tr><th scope="row">Tested with</th><td data-a="Claude Code" class="no">Not pinned</td><td data-a="OpenCode"><code>1.18.32</code></td><td data-a="Codex"><code>0.158.0</code></td></tr>
-              <tr><th scope="row">Approvals, file and command windows, canvas tools, history</th><td data-a="Claude Code" class="yes">Yes</td><td data-a="OpenCode" class="yes">Yes</td><td data-a="Codex" class="yes">Yes <small>looking at the canvas never asks</small></td></tr>
-              <tr><th scope="row">Pasted images</th><td data-a="Claude Code" class="yes">Yes</td><td data-a="OpenCode" class="yes">Yes</td><td data-a="Codex" class="yes">Yes</td></tr>
-              <tr><th scope="row">Sub-agents</th><td data-a="Claude Code" class="yes">Own window</td><td data-a="OpenCode" class="yes">Own window</td><td data-a="Codex" class="part">One row, not their own window</td></tr>
-              <tr><th scope="row">Auto mode</th><td data-a="Claude Code" class="yes">Yes</td><td data-a="OpenCode" class="no">No</td><td data-a="Codex" class="no">No</td></tr>
-              <tr><th scope="row">Effort setting</th><td data-a="Claude Code" class="yes">Yes</td><td data-a="OpenCode" class="no">No</td><td data-a="Codex" class="no">No <small>uses its default</small></td></tr>
-              <tr><th scope="row">Usage windows in the status line</th><td data-a="Claude Code" class="yes">Yes</td><td data-a="OpenCode" class="no">No</td><td data-a="Codex" class="no">No</td></tr>
-              <tr><th scope="row">Take back a queued message</th><td data-a="Claude Code" class="yes">Yes</td><td data-a="OpenCode" class="no">No</td><td data-a="Codex" class="no">No</td></tr>
-              <tr><th scope="row">Memory per session</th><td data-a="Claude Code">Its own <code>claude</code> process</td><td data-a="OpenCode">About 300&nbsp;MB <small>its own <code>opencode</code> server</small></td><td data-a="Codex">About 250&nbsp;MB <small>its own <code>codex app-server</code></small></td></tr>
+              <tr><th scope="row">Sign in with</th><td data-a="Claude Code">Your Claude subscription</td><td data-a="OpenCode"><code>opencode auth login</code>; its own free models need no key</td><td data-a="Codex"><code>codex login</code></td><td data-a="Antigravity">Your Google sign-in, via <code>agy</code> in a terminal</td></tr>
+              <tr><th scope="row">Tested with</th><td data-a="Claude Code" class="no">Not pinned</td><td data-a="OpenCode"><code>1.18.32</code></td><td data-a="Codex"><code>0.158.0</code></td><td data-a="Antigravity"><code>1.2.16</code></td></tr>
+              <tr><th scope="row">Approvals, file and command windows, canvas tools, history</th><td data-a="Claude Code" class="yes">Yes</td><td data-a="OpenCode" class="yes">Yes</td><td data-a="Codex" class="yes">Yes <small>looking at the canvas never asks</small></td><td data-a="Antigravity" class="part">Files, commands and history <small>no approvals: edits are turned down unless in Allow everything; no canvas tools</small></td></tr>
+              <tr><th scope="row">Pasted images</th><td data-a="Claude Code" class="yes">Yes</td><td data-a="OpenCode" class="yes">Yes</td><td data-a="Codex" class="yes">Yes</td><td data-a="Antigravity" class="no">No</td></tr>
+              <tr><th scope="row">Sub-agents</th><td data-a="Claude Code" class="yes">Own window</td><td data-a="OpenCode" class="yes">Own window</td><td data-a="Codex" class="part">One row, not their own window</td><td data-a="Antigravity" class="no">No</td></tr>
+              <tr><th scope="row">Auto mode</th><td data-a="Claude Code" class="yes">Yes</td><td data-a="OpenCode" class="no">No</td><td data-a="Codex" class="no">No</td><td data-a="Antigravity" class="no">No</td></tr>
+              <tr><th scope="row">Effort setting</th><td data-a="Claude Code" class="yes">Yes</td><td data-a="OpenCode" class="no">No</td><td data-a="Codex" class="no">No <small>uses its default</small></td><td data-a="Antigravity" class="no">No <small>models name their own level</small></td></tr>
+              <tr><th scope="row">Usage windows in the status line</th><td data-a="Claude Code" class="yes">Yes</td><td data-a="OpenCode" class="no">No</td><td data-a="Codex" class="no">No</td><td data-a="Antigravity" class="no">No</td></tr>
+              <tr><th scope="row">Take back a queued message</th><td data-a="Claude Code" class="yes">Yes</td><td data-a="OpenCode" class="no">No</td><td data-a="Codex" class="no">No</td><td data-a="Antigravity" class="no">No</td></tr>
+              <tr><th scope="row">Memory per session</th><td data-a="Claude Code">Its own <code>claude</code> process</td><td data-a="OpenCode">About 300&nbsp;MB <small>its own <code>opencode</code> server</small></td><td data-a="Codex">About 250&nbsp;MB <small>its own <code>codex app-server</code></small></td><td data-a="Antigravity">Its own <code>agy</code> process</td></tr>
             </tbody>
           </table>
         </div>
@@ -293,6 +294,10 @@
         <li class="win" data-kind="note">
           <div class="win-h"><h3 class="t" data-glyph="◎">Codex trust</h3></div>
           <div class="win-b"><p>A local folder is marked trusted for Codex, so its <code>.codex/</code> settings and <code>AGENTS.md</code> load, as with Claude Code. A cloned GitHub repo you didn't trust is marked untrusted, so they don't. Nothing is written to <code>~/.codex/config.toml</code>.</p></div>
+        </li>
+        <li class="win" data-kind="note">
+          <div class="win-h"><h3 class="t" data-glyph="!">Antigravity is limited</h3></div>
+          <div class="win-b"><p><code>agy</code> can't ask for approval when run headless, so edits and most commands are turned down and listed under the reply, unless you start the session in <b>Allow everything</b>. No Stop, no mode or model switch mid-session, no pasted images, no slash commands and no canvas tools. See <a href="https://github.com/HimalayanNomads/drawa/issues/34">#34</a>.</p></div>
         </li>
         <li class="win" data-kind="note">
           <div class="win-h"><h3 class="t" data-glyph="≡">Limits and commits</h3></div>
@@ -316,11 +321,11 @@
   <section id="local" class="local wrap" aria-labelledby="local-t">
     <div class="local-copy">
       <h2 id="local-t">Runs on your machine, with the agent you already set up.</h2>
-      <p class="sub">Drawa is one binary. It drives the <code>claude</code>, <code>opencode</code> or <code>codex</code> CLI on your PATH with your login, settings, skills and MCP servers, and serves the page on <code>127.0.0.1</code>.</p>
+      <p class="sub">Drawa is one binary. It drives the <code>claude</code>, <code>opencode</code>, <code>codex</code> or <code>agy</code> CLI on your PATH with your login, settings, skills and MCP servers, and serves the page on <code>127.0.0.1</code>.</p>
       <ul class="facts">
         <li><b>Stays local.</b> The server checks <code>Host</code> and <code>Origin</code> on every request, and file access stays inside the folder you opened.</li>
         <li><b>Reach it from your phone.</b> <code>drawa --net</code> prints a network link with a one-time token and a QR code.</li>
-        <li><b>No Claude subscription?</b> Start OpenCode sessions with any provider it supports or its free models, or Codex with your ChatGPT plan.</li>
+        <li><b>No Claude subscription?</b> Start OpenCode sessions with any provider it supports or its free models, Codex with your ChatGPT plan, or Antigravity with your Google sign-in.</li>
       </ul>
     </div>
     <div class="win term" data-kind="run">
@@ -485,6 +490,7 @@
               <tr><th scope="row"><a href="https://claude.com/claude-code">Claude Code</a></th><td><span class="pill req-pill">One agent required</span> <code>claude</code> on <code>PATH</code> and logged in, for your Claude subscription.</td></tr>
               <tr><th scope="row"><a href="https://opencode.ai">OpenCode</a></th><td>Or, instead or as well: <code>opencode</code> on <code>PATH</code>, for any other provider or its free models. Tested with 1.18.32.</td></tr>
               <tr><th scope="row"><a href="https://developers.openai.com/codex/cli">Codex</a></th><td>Or: <code>codex</code> on <code>PATH</code> and logged in, for your ChatGPT plan or an OpenAI API key. Tested with 0.158.0.</td></tr>
+              <tr><th scope="row"><a href="https://antigravity.google">Antigravity</a></th><td>Or: <code>agy</code> on <code>PATH</code>, signed in once by running <code>agy</code> in a terminal. Limited: no approvals or canvas tools. Tested with 1.2.16.</td></tr>
               <tr><th scope="row"><code>git</code></th><td><span class="pill">Optional</span> Powers the Git window and file history.</td></tr>
               <tr><th scope="row"><a href="https://cli.github.com"><code>gh</code></a></th><td><span class="pill">Optional</span> Powers the GitHub window.</td></tr>
               <tr><th scope="row"><a href="https://github.com/universal-ctags/ctags">universal-ctags</a></th><td><span class="pill">Optional</span> Code symbols: <kbd>Ctrl</kbd><kbd>K</kbd> finds functions, classes and the like by name, and clicking a name in a diff shows where it's defined. <code>brew install universal-ctags</code> on a Mac; turn it off in Settings.</td></tr>
@@ -578,9 +584,10 @@
         <li><span>Claude Pro or Max plan</span><b><a href="https://claude.com/claude-code">Claude Code</a></b><code>curl -fsSL https://claude.ai/install.sh | bash</code></li>
         <li><span>ChatGPT plan or OpenAI API key</span><b><a href="https://developers.openai.com/codex/cli">Codex</a></b><code>npm install -g @openai/codex</code></li>
         <li><span>No paid plan, or another provider</span><b><a href="https://opencode.ai">OpenCode</a></b><code>curl -fsSL https://opencode.ai/install | bash</code></li>
+        <li><span>Google account</span><b><a href="https://antigravity.google">Antigravity</a></b><code>agy</code></li>
       </ul>
       <ul class="facts req">
-        <li><b>One agent, logged in.</b> Any of the three on your PATH is enough. <code>git</code> and <code>gh</code> are optional.</li>
+        <li><b>One agent, logged in.</b> Any of the four on your PATH is enough. <code>git</code> and <code>gh</code> are optional.</li>
         <li><b>On Windows?</b> It isn't supported natively yet, but it runs inside <a href="https://learn.microsoft.com/windows/wsl/install">WSL2</a>. Install your agent there too.</li>
         <li><b><code>drawa: command not found</code>?</b> Add <code>~/.local/bin</code> to your PATH, or see <a href="https://github.com/HimalayanNomads/drawa/blob/main/INSTALL.md">manual downloads and building from source</a>.</li>
       </ul>
