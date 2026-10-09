@@ -34,9 +34,7 @@
   <div class="wrap bar-in">
     <a class="brand" href="#top" aria-label="Drawa, back to top"><span class="logo" aria-hidden="true"></span><b>Drawa</b></a>
     <nav aria-label="Sections">
-      <a href="#features">Features</a>
-      <a href="#review">Review</a>
-      <a href="#groups">Groups</a>
+      <a href="/features/">Features</a>
       <a href="#tour">Tour</a>
       <a href="#agents">Agents</a>
       <a href="#docs">Docs</a>
@@ -234,142 +232,9 @@
         </div>
       </article>
     </div>
-  </section>
-
-  <section id="review" class="review" aria-labelledby="review-t">
-    <div class="wrap">
-      <h2 id="review-t">Review it like a pull request, before it is one.</h2>
-      <p class="sub">An agent's edit isn't a line in a transcript. Each one is numbered inside its file, with line numbers and real context, next to the edits every other session made to it.</p>
-
-      <div class="rv">
-        <!-- the file inspector: two sessions' edits to one file. review.ts opens folded lines and the references list; without script both show -->
-        <div class="win rv-diff" data-kind="file" data-act="edit" id="rv-diff">
-          <div class="win-h"><span class="t" data-glyph="▤">events.go</span><span class="m">2 edits · 2 sessions</span></div>
-          <div class="win-b">
-            <div class="rv-bar">
-              <span class="chip" data-n="1">Fix reconnect <em>+2 −1</em></span>
-              <span class="chip" data-n="2">Retry backoff <em>+1 −0</em></span>
-              <span class="rv-show">Show in file</span>
-            </div>
-            <div class="rv-code" role="group" aria-label="Diff of events.go">
-              <button class="more" type="button" data-more="above" aria-expanded="false"><span aria-hidden="true">↑</span> Show 3 more lines</button>
-              <div class="row eq fold" data-n="38"><span>  <span class="k">for</span> _, c := <span class="k">range</span> cards {</span></div>
-              <div class="row eq fold" data-n="39"><span>    <span class="k">if</span> c.Closed { <span class="k">continue</span> }</span></div>
-              <div class="row eq fold" data-n="40"><span>    <span class="c">// re-attach from its last line</span></span></div>
-              <div class="row hunk" data-edit="1"><span>@@ −41,3 +41,4 @@ <b>#1</b> Fix reconnect</span></div>
-              <div class="row del" data-n="41"><span>    lv, ok := live.<button class="sym" type="button" aria-expanded="false" aria-controls="rv-refs">Get</button>(c.ID); <span class="k">if</span> !ok { <span class="k">continue</span> }</span></div>
-              <div class="row add" data-n="41"><span>    lv, ok := live.<button class="sym" type="button" aria-expanded="false" aria-controls="rv-refs">Get</button>(c.ID)</span></div>
-              <div class="row add" data-n="42"><span>    <span class="k">if</span> !ok { lv = live.<span class="f">Start</span>(c.ID) }</span></div>
-              <div class="row eq" data-n="43"><span>    lv.<span class="f">Replay</span>(w, c.From)</span></div>
-              <div class="row hunk" data-edit="2"><span>@@ −52,2 +53,3 @@ <b>#2</b> Retry backoff</span></div>
-              <div class="row eq" data-n="53"><span>  <span class="k">for</span> try := <span class="ok">0</span>; try &lt; <span class="ok">5</span>; try++ {</span></div>
-              <div class="row add" data-n="54"><span>    time.<span class="f">Sleep</span>(backoff(try))</span></div>
-              <div class="row eq" data-n="55"><span>  }</span></div>
-            </div>
-            <div class="refs" id="rv-refs" aria-label="References to Get">
-              <p><b>Get</b> · 4 references</p>
-              <ol>
-                <li><span>internal/live/registry.go</span><em>22</em></li>
-                <li><span>internal/server/events.go</span><em>41</em></li>
-                <li><span>internal/server/cardops.go</span><em>87</em></li>
-                <li><span>internal/live/live_test.go</span><em>130</em></li>
-              </ol>
-            </div>
-          </div>
-        </div>
-
-        <ul class="facts rv-facts">
-          <li><b>Every session, one file.</b> Click a file for each change made to it, numbered and labeled with the session that made it. Line numbers open the file at that line.</li>
-          <li><b>More context on demand.</b> Long unchanged stretches fold into a row you click. In Git and GitHub diffs, a hunk's header shows ten more lines at a time, as a pull request review does.</li>
-          <li><b>Jump from a name.</b> Click a name in an agent's edit for its definition. In a Git or GitHub diff, get every place it's used, each opening at its line in a small peek window. <span class="try" hidden>Click <code>Get</code> in the diff to try it.</span></li>
-          <li><b>Pin a hunk.</b> Select part of a diff and pin it to the canvas. It stays a diff, with its <code>+</code> and <code>−</code>, ready to <code>@</code>-mention in a message.</li>
-          <li><b>Approve from the card.</b> An edit waiting on you shows its diff inside the card: deny, allow once, or always.</li>
-          <li><b>Discard a file.</b> Modified and deleted files in the Git window get a discard button: a change goes back to what's staged, a staged one to the last commit.</li>
-        </ul>
-      </div>
-
-      <div class="rv rv-2">
-        <div class="rv-copy">
-          <h3>Plans you can mark up.</h3>
-          <p>In plan mode, Claude's plan opens as a document on the canvas. Comment on any block, or draw on it, then approve it or send your notes back. The revision lands in the same window, with what changed marked word by word.</p>
-        </div>
-        <div class="win rv-plan" data-kind="plan">
-          <div class="win-h"><span class="t" data-glyph="✦">Plan</span><span class="m">v2 · 1 added · 1 edited</span></div>
-          <div class="win-b">
-            <div class="plan-doc">
-              <p class="plan-t">Keep the stream across reloads</p>
-              <ol>
-                <li>Store each card's last event id.</li>
-                <li class="has-note">On reload, <del>poll every card</del> <ins>re-attach from that id</ins>.<span class="note-pin" role="note"><b>You</b> What about cards that never went live?</span></li>
-                <li class="pnew">Start cards that aren't live yet, then replay.</li>
-                <li>Add a test that reloads mid-stream.</li>
-              </ol>
-            </div>
-            <div class="plan-dock">
-              <span class="input">Notes for Claude…</span>
-              <span class="btn">Send notes</span>
-              <span class="btn primary">Approve</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="groups" class="groups" aria-labelledby="groups-t">
-    <div class="wrap">
-      <h2 id="groups-t">Group the canvas by what you're working on.</h2>
-      <p class="sub">A group is a named frame around windows: a session, the files it touched, a note, a diagram. Drag the frame's tab and everything inside comes along. Fold it away when you're done.</p>
-
-      <!-- two group frames, as in the app's group.ts. groups.ts folds and unfolds them -->
-      <div class="grp-stage">
-        <div class="win grp" data-kind="plan" id="grp-fix">
-          <div class="win-h">
-            <span class="t" data-glyph="⧉">Reconnect fix</span><span class="m">3 windows</span>
-            <button class="grp-fold" type="button" aria-expanded="true" aria-controls="grp-fix-b" aria-label="Collapse the Reconnect fix group"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg></button>
-          </div>
-          <div class="win-b" id="grp-fix-b">
-            <div class="win card g-card" data-kind="session" data-state="busy">
-              <div class="win-h"><span class="dot"></span><span class="t">Fix reconnect</span><span class="m">opus</span></div>
-              <div class="win-b"><ul class="acts"><li class="read"><b>Read</b><span>live.go</span></li><li class="edit"><b>Edit</b><span>events.go</span><em>+2 −1</em></li><li class="run"><b>Run</b><span>go test ./...</span></li></ul></div>
-            </div>
-            <div class="win g-file" data-kind="file" data-act="edit">
-              <div class="win-h"><span class="t" data-glyph="▤">events.go</span><span class="m">+2 −1</span></div>
-              <div class="win-b"><pre class="diff"><span class="del">- <span class="k">if</span> !ok { <span class="k">continue</span> }</span><span class="add">+ lv = live.<span class="f">Start</span>(c.ID)</span></pre></div>
-            </div>
-            <div class="win g-note" data-kind="note">
-              <div class="win-h"><span class="t" data-glyph="▪">Note</span></div>
-              <div class="win-b"><p>Check the phone layout once this lands.</p><svg class="g-ink" viewBox="0 0 140 36" aria-hidden="true"><path d="M4 28c26-22 60-26 112-10"/><path d="M106 8l12 10-14 6"/></svg></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="win grp" data-kind="plan" id="grp-rel">
-          <div class="win-h">
-            <span class="t" data-glyph="⧉">Release 0.9</span><span class="m">2 windows</span>
-            <button class="grp-fold" type="button" aria-expanded="true" aria-controls="grp-rel-b" aria-label="Collapse the Release 0.9 group"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg></button>
-          </div>
-          <div class="win-b" id="grp-rel-b">
-            <div class="win card g-card" data-kind="session" data-state="done">
-              <div class="win-h"><span class="dot"></span><span class="t">Release notes</span><span class="m">codex</span></div>
-              <div class="win-b"><ul class="acts"><li class="write"><b>Write</b><span>CHANGELOG.md</span></li><li class="run"><b>Run</b><span>git tag v0.9.0</span></li></ul></div>
-            </div>
-            <div class="win g-gh" data-kind="git">
-              <div class="win-h"><span class="t" data-glyph="⎇">GitHub</span><span class="m">#153</span></div>
-              <div class="win-b"><p><span class="ok" aria-hidden="true">●</span> Checks passed, ready to merge</p></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <ol class="grp-rules">
-        <li><span class="gk"><kbd>Ctrl</kbd><kbd>G</kbd></span><p><b>Group the selection.</b> Groups inside it merge into one. With nothing selected, you get an empty frame to drop windows into.</p></li>
-        <li><span class="gk"><span class="glyph" aria-hidden="true">⇲</span></span><p><b>Drop in to join, drag out to leave.</b> A window dropped into a frame keeps its spot and the frame grows to fit. Dragged out, it leaves at once, with a notice that puts it back.</p></li>
-        <li><span class="gk"><span class="glyph" aria-hidden="true">▣</span></span><p><b>Never on top of each other.</b> Frames wrap their windows as they grow, and make room instead of overlapping another group.</p></li>
-        <li><span class="gk"><span class="glyph" aria-hidden="true">✎</span></span><p><b>Drawings and pictures belong too.</b> Ink, arrows and pictures inside a frame move with it, and a session's files, commands and plan windows open inside the group its card is in.</p></li>
-        <li><span class="gk"><kbd>]</kbd><kbd>[</kbd></span><p><b>Layers.</b> Bring a window forward or send it back, past the next one it overlaps; with <kbd>Shift</kbd>, all the way. Inside a group, they reorder its windows.</p></li>
-        <li><span class="gk"><kbd>Ctrl</kbd><kbd>Z</kbd></span><p><b>Nothing is lost.</b> Deleting a group can be undone with its frame intact, and a frame stays when its last window leaves. <kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>G</kbd> ungroups.</p></li>
-      </ol>
+    <div class="wrap more-cta">
+      <a class="btn ghost" href="/features/">See all features <span aria-hidden="true">→</span></a>
+      <span>Review, groups, editing, Git and more, with what each agent supports.</span>
     </div>
   </section>
 

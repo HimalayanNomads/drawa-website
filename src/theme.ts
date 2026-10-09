@@ -20,7 +20,7 @@ const ICON = {
 }
 
 const btn = document.querySelector<HTMLButtonElement>('#theme')!
-const box = document.querySelector<HTMLElement>('#schemes')!
+const box = document.querySelector<HTMLElement>('#schemes') // the scheme picker, on pages that have one
 
 function apply(remember = true) {
   const root = document.documentElement
@@ -36,6 +36,7 @@ function apply(remember = true) {
 
 // each swatch sets data-scheme on itself, so its --c-* colors are that scheme's own
 function renderSchemes() {
+  if (!box) return
   box.replaceChildren(...SCHEMES[choice.mode].map(([id, label]) => {
     const b = document.createElement('button')
     b.type = 'button'

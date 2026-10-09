@@ -403,3 +403,6 @@ pre.code{margin:20px 0 0;padding:14px 18px;font:13px/1.7 var(--mono);color:var(-
   html{scroll-behavior:auto}
   *,*::before,*::after{animation:none!important;transition-duration:.01ms!important}
 }
+
+/* the link from the home page's board to the features page */
+.more-cta{display:flex;flex-wrap:wrap;align-items:center;gap:12px 20px;margin-top:56px;font-size:15px;color:var(--ink-2)}
