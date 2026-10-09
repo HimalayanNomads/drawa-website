@@ -35,6 +35,8 @@
     <a class="brand" href="#top" aria-label="Drawa, back to top"><span class="logo" aria-hidden="true"></span><b>Drawa</b></a>
     <nav aria-label="Sections">
       <a href="#features">Features</a>
+      <a href="#review">Review</a>
+      <a href="#groups">Groups</a>
       <a href="#tour">Tour</a>
       <a href="#agents">Agents</a>
       <a href="#docs">Docs</a>
@@ -202,6 +204,172 @@
           <div id="schemes" class="schemes" role="radiogroup" aria-label="Color scheme"></div>
         </div>
       </article>
+
+      <article class="win f-edit" data-kind="file">
+        <div class="win-h"><h3 class="t" data-glyph="✎">Edit files in place</h3></div>
+        <div class="win-b">
+          <p>The pencil on a file window, or a double-click on its text, turns it into an editor. <kbd>Ctrl</kbd><kbd>S</kbd> saves, and only while the file on disk still matches what you opened. Turn on Vim motions in Settings for <code>:w</code>, <code>gd</code> and yanks that reach your clipboard.</p>
+          <pre class="vim" aria-label="Example: a file window in Vim mode"><span class="ln">41</span> <span class="k">func</span> (s *Server) <span class="f">events</span>(w http.ResponseWriter) {
+<span class="ln">42</span>   lv, ok := live.<span class="f">Get</span>(c.ID)<span class="cur" aria-hidden="true"> </span>
+<span class="vim-bar"><b>NORMAL</b><span>events.go</span><span>:w</span></span></pre>
+        </div>
+      </article>
+
+      <article class="win f-status" data-kind="session">
+        <div class="win-h"><h3 class="t" data-glyph="%">Limits at a glance</h3></div>
+        <div class="win-b">
+          <p>Under each card's message box: tools loaded, context used, and rings for the 5-hour and weekly usage windows on Claude and ChatGPT plans. When a turn ends or an agent waits on you while you're in another tab, the tab title counts it and, if you allow them, a notification says so.</p>
+          <div class="rings" aria-label="Example status line: 49% of the 5-hour window, 12% of the week">
+            <span class="ring" style="--p:49"><i aria-hidden="true"></i>5h <b>49%</b></span>
+            <span class="ring" style="--p:12"><i aria-hidden="true"></i>week <b>12%</b></span>
+            <span class="ctx">38% context</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="win f-repos" data-kind="git">
+        <div class="win-h"><h3 class="t" data-glyph="⎇">Every repo, every worktree</h3></div>
+        <div class="win-b">
+          <p>A folder of cloned repos? The Git window finds each one, up to four folders deep, with its own commit box and pull request. Each repo's header lists its worktrees: pick one to switch to it, or remove one you're done with.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="review" class="review" aria-labelledby="review-t">
+    <div class="wrap">
+      <h2 id="review-t">Review it like a pull request, before it is one.</h2>
+      <p class="sub">An agent's edit isn't a line in a transcript. Each one is numbered inside its file, with line numbers and real context, next to the edits every other session made to it.</p>
+
+      <div class="rv">
+        <!-- the file inspector: two sessions' edits to one file. review.ts opens folded lines and the references list; without script both show -->
+        <div class="win rv-diff" data-kind="file" data-act="edit" id="rv-diff">
+          <div class="win-h"><span class="t" data-glyph="▤">events.go</span><span class="m">2 edits · 2 sessions</span></div>
+          <div class="win-b">
+            <div class="rv-bar">
+              <span class="chip" data-n="1">Fix reconnect <em>+2 −1</em></span>
+              <span class="chip" data-n="2">Retry backoff <em>+1 −0</em></span>
+              <span class="rv-show">Show in file</span>
+            </div>
+            <div class="rv-code" role="group" aria-label="Diff of events.go">
+              <button class="more" type="button" data-more="above" aria-expanded="false"><span aria-hidden="true">↑</span> Show 3 more lines</button>
+              <div class="row eq fold" data-n="38"><span>  <span class="k">for</span> _, c := <span class="k">range</span> cards {</span></div>
+              <div class="row eq fold" data-n="39"><span>    <span class="k">if</span> c.Closed { <span class="k">continue</span> }</span></div>
+              <div class="row eq fold" data-n="40"><span>    <span class="c">// re-attach from its last line</span></span></div>
+              <div class="row hunk" data-edit="1"><span>@@ −41,3 +41,4 @@ <b>#1</b> Fix reconnect</span></div>
+              <div class="row del" data-n="41"><span>    lv, ok := live.<button class="sym" type="button" aria-expanded="false" aria-controls="rv-refs">Get</button>(c.ID); <span class="k">if</span> !ok { <span class="k">continue</span> }</span></div>
+              <div class="row add" data-n="41"><span>    lv, ok := live.<button class="sym" type="button" aria-expanded="false" aria-controls="rv-refs">Get</button>(c.ID)</span></div>
+              <div class="row add" data-n="42"><span>    <span class="k">if</span> !ok { lv = live.<span class="f">Start</span>(c.ID) }</span></div>
+              <div class="row eq" data-n="43"><span>    lv.<span class="f">Replay</span>(w, c.From)</span></div>
+              <div class="row hunk" data-edit="2"><span>@@ −52,2 +53,3 @@ <b>#2</b> Retry backoff</span></div>
+              <div class="row eq" data-n="53"><span>  <span class="k">for</span> try := <span class="ok">0</span>; try &lt; <span class="ok">5</span>; try++ {</span></div>
+              <div class="row add" data-n="54"><span>    time.<span class="f">Sleep</span>(backoff(try))</span></div>
+              <div class="row eq" data-n="55"><span>  }</span></div>
+            </div>
+            <div class="refs" id="rv-refs" aria-label="References to Get">
+              <p><b>Get</b> · 4 references</p>
+              <ol>
+                <li><span>internal/live/registry.go</span><em>22</em></li>
+                <li><span>internal/server/events.go</span><em>41</em></li>
+                <li><span>internal/server/cardops.go</span><em>87</em></li>
+                <li><span>internal/live/live_test.go</span><em>130</em></li>
+              </ol>
+            </div>
+          </div>
+        </div>
+
+        <ul class="facts rv-facts">
+          <li><b>Every session, one file.</b> Click a file for each change made to it, numbered and labeled with the session that made it. Line numbers open the file at that line.</li>
+          <li><b>More context on demand.</b> Long unchanged stretches fold into a row you click. In Git and GitHub diffs, a hunk's header shows ten more lines at a time, as a pull request review does.</li>
+          <li><b>Jump from a name.</b> Click a name in an agent's edit for its definition. In a Git or GitHub diff, get every place it's used, each opening at its line in a small peek window. <span class="try" hidden>Click <code>Get</code> in the diff to try it.</span></li>
+          <li><b>Pin a hunk.</b> Select part of a diff and pin it to the canvas. It stays a diff, with its <code>+</code> and <code>−</code>, ready to <code>@</code>-mention in a message.</li>
+          <li><b>Approve from the card.</b> An edit waiting on you shows its diff inside the card: deny, allow once, or always.</li>
+          <li><b>Discard a file.</b> Modified and deleted files in the Git window get a discard button: a change goes back to what's staged, a staged one to the last commit.</li>
+        </ul>
+      </div>
+
+      <div class="rv rv-2">
+        <div class="rv-copy">
+          <h3>Plans you can mark up.</h3>
+          <p>In plan mode, Claude's plan opens as a document on the canvas. Comment on any block, or draw on it, then approve it or send your notes back. The revision lands in the same window, with what changed marked word by word.</p>
+        </div>
+        <div class="win rv-plan" data-kind="plan">
+          <div class="win-h"><span class="t" data-glyph="✦">Plan</span><span class="m">v2 · 1 added · 1 edited</span></div>
+          <div class="win-b">
+            <div class="plan-doc">
+              <p class="plan-t">Keep the stream across reloads</p>
+              <ol>
+                <li>Store each card's last event id.</li>
+                <li class="has-note">On reload, <del>poll every card</del> <ins>re-attach from that id</ins>.<span class="note-pin" role="note"><b>You</b> What about cards that never went live?</span></li>
+                <li class="pnew">Start cards that aren't live yet, then replay.</li>
+                <li>Add a test that reloads mid-stream.</li>
+              </ol>
+            </div>
+            <div class="plan-dock">
+              <span class="input">Notes for Claude…</span>
+              <span class="btn">Send notes</span>
+              <span class="btn primary">Approve</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="groups" class="groups" aria-labelledby="groups-t">
+    <div class="wrap">
+      <h2 id="groups-t">Group the canvas by what you're working on.</h2>
+      <p class="sub">A group is a named frame around windows: a session, the files it touched, a note, a diagram. Drag the frame's tab and everything inside comes along. Fold it away when you're done.</p>
+
+      <!-- two group frames, as in the app's group.ts. groups.ts folds and unfolds them -->
+      <div class="grp-stage">
+        <div class="win grp" data-kind="plan" id="grp-fix">
+          <div class="win-h">
+            <span class="t" data-glyph="⧉">Reconnect fix</span><span class="m">3 windows</span>
+            <button class="grp-fold" type="button" aria-expanded="true" aria-controls="grp-fix-b" aria-label="Collapse the Reconnect fix group"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg></button>
+          </div>
+          <div class="win-b" id="grp-fix-b">
+            <div class="win card g-card" data-kind="session" data-state="busy">
+              <div class="win-h"><span class="dot"></span><span class="t">Fix reconnect</span><span class="m">opus</span></div>
+              <div class="win-b"><ul class="acts"><li class="read"><b>Read</b><span>live.go</span></li><li class="edit"><b>Edit</b><span>events.go</span><em>+2 −1</em></li><li class="run"><b>Run</b><span>go test ./...</span></li></ul></div>
+            </div>
+            <div class="win g-file" data-kind="file" data-act="edit">
+              <div class="win-h"><span class="t" data-glyph="▤">events.go</span><span class="m">+2 −1</span></div>
+              <div class="win-b"><pre class="diff"><span class="del">- <span class="k">if</span> !ok { <span class="k">continue</span> }</span><span class="add">+ lv = live.<span class="f">Start</span>(c.ID)</span></pre></div>
+            </div>
+            <div class="win g-note" data-kind="note">
+              <div class="win-h"><span class="t" data-glyph="▪">Note</span></div>
+              <div class="win-b"><p>Check the phone layout once this lands.</p><svg class="g-ink" viewBox="0 0 140 36" aria-hidden="true"><path d="M4 28c26-22 60-26 112-10"/><path d="M106 8l12 10-14 6"/></svg></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="win grp" data-kind="plan" id="grp-rel">
+          <div class="win-h">
+            <span class="t" data-glyph="⧉">Release 0.9</span><span class="m">2 windows</span>
+            <button class="grp-fold" type="button" aria-expanded="true" aria-controls="grp-rel-b" aria-label="Collapse the Release 0.9 group"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg></button>
+          </div>
+          <div class="win-b" id="grp-rel-b">
+            <div class="win card g-card" data-kind="session" data-state="done">
+              <div class="win-h"><span class="dot"></span><span class="t">Release notes</span><span class="m">codex</span></div>
+              <div class="win-b"><ul class="acts"><li class="write"><b>Write</b><span>CHANGELOG.md</span></li><li class="run"><b>Run</b><span>git tag v0.9.0</span></li></ul></div>
+            </div>
+            <div class="win g-gh" data-kind="git">
+              <div class="win-h"><span class="t" data-glyph="⎇">GitHub</span><span class="m">#153</span></div>
+              <div class="win-b"><p><span class="ok" aria-hidden="true">●</span> Checks passed, ready to merge</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <ol class="grp-rules">
+        <li><span class="gk"><kbd>Ctrl</kbd><kbd>G</kbd></span><p><b>Group the selection.</b> Groups inside it merge into one. With nothing selected, you get an empty frame to drop windows into.</p></li>
+        <li><span class="gk"><span class="glyph" aria-hidden="true">⇲</span></span><p><b>Drop in to join, drag out to leave.</b> A window dropped into a frame keeps its spot and the frame grows to fit. Dragged out, it leaves at once, with a notice that puts it back.</p></li>
+        <li><span class="gk"><span class="glyph" aria-hidden="true">▣</span></span><p><b>Never on top of each other.</b> Frames wrap their windows as they grow, and make room instead of overlapping another group.</p></li>
+        <li><span class="gk"><span class="glyph" aria-hidden="true">✎</span></span><p><b>Drawings and pictures belong too.</b> Ink, arrows and pictures inside a frame move with it, and a session's files, commands and plan windows open inside the group its card is in.</p></li>
+        <li><span class="gk"><kbd>]</kbd><kbd>[</kbd></span><p><b>Layers.</b> Bring a window forward or send it back, past the next one it overlaps; with <kbd>Shift</kbd>, all the way. Inside a group, they reorder its windows.</p></li>
+        <li><span class="gk"><kbd>Ctrl</kbd><kbd>Z</kbd></span><p><b>Nothing is lost.</b> Deleting a group can be undone with its frame intact, and a frame stays when its last window leaves. <kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>G</kbd> ungroups.</p></li>
+      </ol>
     </div>
   </section>
 
@@ -348,6 +516,7 @@
         <button class="tab" type="button" role="tab" id="kt-canvas" aria-controls="kp-canvas" aria-selected="false" data-kind="file" data-glyph="▦">Canvas</button>
         <button class="tab" type="button" role="tab" id="kt-items" aria-controls="kp-items" aria-selected="false" data-kind="plan" data-glyph="✦">Items</button>
         <button class="tab" type="button" role="tab" id="kt-windows" aria-controls="kp-windows" aria-selected="false" data-kind="git" data-glyph="▢">Windows</button>
+        <button class="tab" type="button" role="tab" id="kt-editor" aria-controls="kp-editor" aria-selected="false" data-kind="file" data-glyph="✎">File editor</button>
         <button class="tab" type="button" role="tab" id="kt-draw" aria-controls="kp-draw" aria-selected="false" data-kind="sketch" data-glyph="✎">Draw</button>
         <button class="tab" type="button" role="tab" id="kt-selection" aria-controls="kp-selection" aria-selected="false" data-kind="agent" data-glyph="◇">Selection</button>
         <button class="tab" type="button" role="tab" id="kt-message" aria-controls="kp-message" aria-selected="false" data-kind="run" data-glyph="▸">Message box</button>
@@ -401,8 +570,23 @@
           <div><dt><kbd>F2</kbd></dt><dd>Rename</dd></div>
           <div><dt><kbd>Shift</kbd><kbd>P</kbd></dt><dd>Pin to the sidebar</dd></div>
           <div><dt><kbd>Shift</kbd><kbd>S</kbd></dt><dd>Stick to the screen</dd></div>
+          <div><dt><kbd>]</kbd><span class="or">or</span><kbd>[</kbd></dt><dd>Bring forward / send backward</dd></div>
+          <div><dt><kbd>Shift</kbd><kbd>]</kbd><span class="or">or</span><kbd>Shift</kbd><kbd>[</kbd></dt><dd>Bring to front / send to back</dd></div>
         </dl>
         <p class="note">They act on the selected window, else the one in front. <kbd>W</kbd> selects, so <kbd>Delete</kbd>, the arrows and <kbd>Ctrl</kbd><kbd>G</kbd> act on it.</p>
+      </div>
+      <div class="panel" role="tabpanel" id="kp-editor" aria-labelledby="kt-editor">
+        <dl class="key-list">
+          <div><dt><kbd>Ctrl/⌘</kbd><kbd>S</kbd></dt><dd>Save</dd></div>
+          <div><dt><kbd>:w</kbd></dt><dd>Save (Vim)</dd></div>
+          <div><dt><kbd>:q</kbd></dt><dd>Stop editing (Vim)</dd></div>
+          <div><dt><kbd>:q!</kbd></dt><dd>Drop unsaved changes (Vim)</dd></div>
+          <div><dt><kbd>:wq</kbd><span class="or">or</span><kbd>:x</kbd></dt><dd>Save and stop (Vim)</dd></div>
+          <div><dt><kbd>gd</kbd><span class="or">or</span><kbd>gD</kbd></dt><dd>Where a name is declared, in the function / file (Vim)</dd></div>
+          <div><dt><kbd>Ctrl</kbd><kbd>O</kbd></dt><dd>Jump back (Vim)</dd></div>
+          <div><dt><kbd>Esc</kbd><span class="plus">then</span><kbd>Tab</kbd></dt><dd>Leave the editor</dd></div>
+        </dl>
+        <p class="note">Start editing with the pencil on a file window, a double-click on its text, or <b>Edit</b> in the file inspector. The pencil again stops, and asks first if there are unsaved changes. Vim motions are off until you turn them on in Settings.</p>
       </div>
       <div class="panel" role="tabpanel" id="kp-draw" aria-labelledby="kt-draw">
         <dl class="key-list">
@@ -491,7 +675,7 @@
               <tr><th scope="row"><a href="https://opencode.ai">OpenCode</a></th><td>Or, instead or as well: <code>opencode</code> on <code>PATH</code>, for any other provider or its free models. Tested with 1.18.32.</td></tr>
               <tr><th scope="row"><a href="https://developers.openai.com/codex/cli">Codex</a></th><td>Or: <code>codex</code> on <code>PATH</code> and logged in, for your ChatGPT plan or an OpenAI API key. Tested with 0.158.0.</td></tr>
               <tr><th scope="row"><a href="https://antigravity.google">Antigravity</a></th><td>Or: <code>agy</code> on <code>PATH</code>, signed in once by running <code>agy</code> in a terminal. Limited: no approvals or canvas tools. Tested with 1.2.16.</td></tr>
-              <tr><th scope="row"><code>git</code></th><td><span class="pill">Optional</span> Powers the Git window and file history.</td></tr>
+              <tr><th scope="row"><code>git</code></th><td><span class="pill">Optional</span> 2.36 or later. Powers the Git window, file history and find references.</td></tr>
               <tr><th scope="row"><a href="https://cli.github.com"><code>gh</code></a></th><td><span class="pill">Optional</span> Powers the GitHub window.</td></tr>
               <tr><th scope="row"><a href="https://github.com/universal-ctags/ctags">universal-ctags</a></th><td><span class="pill">Optional</span> Code symbols: <kbd>Ctrl</kbd><kbd>K</kbd> finds functions, classes and the like by name, and clicking a name in a diff shows where it's defined. <code>brew install universal-ctags</code> on a Mac; turn it off in Settings.</td></tr>
               <tr><th scope="row">OS</th><td>macOS or Linux. Windows isn't supported natively yet, but Drawa runs inside <a href="https://learn.microsoft.com/windows/wsl/install">WSL2</a>.</td></tr>
@@ -523,14 +707,18 @@
 {
   <span class="f">"darkScheme"</span>: <span class="s">"claude-dark"</span>,
   <span class="f">"lightScheme"</span>: <span class="s">"claude-light"</span>,
+  <span class="f">"symbols"</span>: <span class="s">"auto"</span>,
   <span class="f">"theme"</span>: <span class="s">"system"</span>,
-  <span class="f">"ui"</span>: <span class="s">"full"</span>
+  <span class="f">"ui"</span>: <span class="s">"full"</span>,
+  <span class="f">"vim"</span>: <span class="s">"off"</span>
 }</pre>
             </div>
             <dl class="opts">
               <div><dt><code>ui</code><em>full</em></dt><dd><code>full</code> shows every window's title tab; <code>minimal</code> shows a tab only when you hover or focus its window. A card waiting for your approval keeps its tab either way.</dd></div>
               <div><dt><code>theme</code><em>system</em></dt><dd><code>system</code> follows your computer's light or dark mode; <code>light</code> or <code>dark</code> fixes it.</dd></div>
               <div><dt><code>lightScheme</code>, <code>darkScheme</code><em>claude-light, claude-dark</em></dt><dd>The color scheme for each mode, such as <code>rose-pine-dawn</code>, <code>catppuccin-mocha</code> or <code>nord</code>. <a href="#features">Try them on this page.</a></dd></div>
+            <div><dt><code>symbols</code><em>auto</em></dt><dd><code>auto</code> reads code symbols with universal-ctags when it's installed; <code>off</code> never runs it.</dd></div>
+            <div><dt><code>vim</code><em>off</em></dt><dd><code>on</code> gives the file editor and scratchpads Vim motions. Yanks and deletes go to the system clipboard, and a yank flashes so you see what it took.</dd></div>
               <div><dt>Per browser</dt><dd>Fonts, and which key sends a message.</dd></div>
             </dl>
           </div>
