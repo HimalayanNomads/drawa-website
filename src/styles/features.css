@@ -1,0 +1,56 @@
+/* The features page (features/index.html): a header with one window per category, a strip of categories that
+   sticks under the bar, then each category as a section of feature windows. */
+html:has(.fx-strip){scroll-padding-top:128px}
+.bar nav a[aria-current=page]{color:var(--ink);background:var(--hover)}
+
+/* ---------- header and index ---------- */
+.fx-hero{padding:clamp(40px,5vw,72px) 0 clamp(56px,7vw,88px);background-color:var(--canvas);background-image:radial-gradient(var(--dot) 1px,transparent 1.2px);background-size:22px 22px}
+.crumb{margin:0 0 18px;font:13px var(--mono);color:var(--muted)}
+.crumb a{color:var(--ink-2);text-underline-offset:3px}
+.fx-hero h1{font-size:clamp(2.4rem,1.2rem + 4.2vw,4.4rem);line-height:1;font-weight:720;letter-spacing:-.038em;max-width:16ch}
+.fx-index{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(260px,100%),1fr));gap:28px 22px;margin:56px 0 0;padding:0;list-style:none}
+.fx-index li{display:flex}
+.fx-index a.win{flex:1;text-decoration:none;transition:translate .2s var(--ease)}
+.fx-index a.win:hover{translate:0 -2px}
+.fx-index .win-b{padding:14px 18px 16px;font-size:14.5px;line-height:1.5;color:var(--ink-2)}
+.fx-index .m:empty{display:none}
+
+/* ---------- the category strip ---------- */
+.fx-strip{position:sticky;top:60px;z-index:calc(var(--z-bar) - 1);background:var(--bg);border-block:1px solid var(--line)}
+.fx-strip-in{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+.fx-strip-in::-webkit-scrollbar{display:none}
+.fx-strip a{flex:none;display:inline-flex;align-items:center;height:46px;padding:0 12px;font-size:14px;font-weight:550;color:var(--muted);text-decoration:none;white-space:nowrap;transition:color .15s,box-shadow .2s}
+.fx-strip a::before{content:attr(data-glyph);margin-right:7px;color:var(--kind);opacity:.55;transition:opacity .15s}
+.fx-strip a:hover{color:var(--ink)}
+.fx-strip a:is(:hover,[aria-current])::before{opacity:1}
+.fx-strip a[aria-current]{color:var(--ink);box-shadow:inset 0 -2px 0 var(--kind)}
+.fx-strip a:focus-visible{outline-offset:-3px}
+:is(.fx-strip a,.fx-index .win)[data-kind=session]{--kind:var(--k-session)}:is(.fx-strip a,.fx-index .win)[data-kind=file]{--kind:var(--k-file)}
+:is(.fx-strip a,.fx-index .win)[data-kind=sketch]{--kind:var(--k-sketch)}:is(.fx-strip a,.fx-index .win)[data-kind=plan]{--kind:var(--k-plan)}
+:is(.fx-strip a,.fx-index .win)[data-kind=git]{--kind:var(--k-git)}:is(.fx-strip a,.fx-index .win)[data-kind=run]{--kind:var(--k-run)}
+
+/* ---------- categories ---------- */
+.cat{padding-block:clamp(64px,8vw,112px)}
+.cat.alt{background-color:var(--canvas);background-image:radial-gradient(var(--dot) 1px,transparent 1.2px);background-size:22px 22px;border-block:1px solid var(--line)}
+.cat-n{display:block;margin-bottom:12px;font:600 13px var(--mono);color:var(--muted);letter-spacing:.04em}
+.fx-verbs{margin-top:44px}
+.ft-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(320px,100%),1fr));gap:36px 24px;margin-top:52px}
+.ft .win-b{display:flex;flex-direction:column;padding:18px 22px 22px;font-size:15.5px;color:var(--ink-2)}
+.ft .win-b p{margin:0}
+.ft .win-b p+p{margin-top:12px}
+.ft .win-b a{color:var(--ink);text-underline-offset:3px}
+.ft .win-b b{color:var(--ink);font-weight:600}
+.ft .win-h .m{font-size:11px;padding:1px 6px;border:1px solid var(--line);border-radius:var(--r-tag);background:var(--bg);overflow:visible}
+.ft .win-h .t{font-size:14px}
+.ft.wide{grid-column:span 2}
+.ft-for{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto!important;padding-top:16px}
+.ft-for .pill{margin:0}
+.ft .schemes{margin-top:16px}
+
+.fx-end .end-links{margin:24px 0 0;font-size:15px;color:var(--muted)}
+.fx-end .end-links a{color:var(--ink-2);text-underline-offset:3px}
+
+@media (max-width:760px){.ft.wide{grid-column:auto}}
+@media (max-width:640px){.fx-strip{top:60px}.fx-strip a{padding:0 10px}}
+/* phones hide the bar's links (site.css); keep the one to the features page */
+@media (max-width:640px){.bar nav{display:flex}.bar nav a:not([href="/features/"]){display:none}}
